@@ -2,7 +2,7 @@
 #include "bbs.h"
 rawmode()
 {
-    struct termio tbuf;
+    struct termios tbuf;
     if (tcgetattr(0, &systerm) == -1) {
         perror("tcgetattr");
         exit(1);
@@ -54,7 +54,7 @@ char *argv[];
         signal(SIGTSTP,SIG_IGN);
         signal(SIGTTIN,SIG_IGN);
         signal(SIGTTOU,SIG_IGN);
-	signal(SIGPWR,host_end);
+	signal(SIGUSR1,host_end);
 	signal(SIGSTOP,SIG_IGN);
 	signal(SIGVTALRM,host_end);
 	signal(SIGWINCH,SIG_IGN);

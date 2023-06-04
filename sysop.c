@@ -15,7 +15,10 @@ sysop()
     char buf[80], tmp[10], ch;
     FILE *fp1;
     struct termio tbuf;
-    ioctl(0,TCGETA, &systerm);
+    if (tcgetattr(0, &systerm) == -1) {
+        perror("tcgetattr");
+        exit(1);
+    }
     rawmode();
     umask(0111);
     fclose(fp1);
