@@ -35,7 +35,8 @@ int reprint; /* 화면 재생여부에 관한 매개수 */
 int relogo;  /* 로고 재 표시에 대한 여부 */
 char genbuf[255]; /* 일반버퍼 간단한 작업이 필요할 때 임시로 쓰는 또다른 일반버퍼이다 */
 char tty[15]; /* 접속 포트 */
-char tmp_buf[256],temp[256],mypass[9],**comm,*shmaddr,*shmat();
+char tmp_buf[256],temp[256],mypass[9],**comm,*shmaddr;
+void *shmat();
 char li[10],ln[20],lt[40],ld[30];  /*게시판 검색용 */
 int  start,go,menu_num,level,shmid_id,child_pid,room,shmid,guest;
 int  now_num, top_num, menu_num, esc_flag, esc_sub, write_size, cs, end_flag; 
