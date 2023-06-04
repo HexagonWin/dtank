@@ -1,0 +1,613 @@
+
+
+#26   최진호   (polytech)
+[소스]DATABSE FILE FORMAT READ               02/25 19:13   116 line
+
+
+
+예전에 어디선가 구한것입니다
+DBASE 3의 화일 구조를 알수있읍니다
+강좌란에 화일 포맷에대한 글이 있읍니다
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+void main(int argc,char *argv[])
+{
+
+	struct dbf_form {
+		char			id;				/* id x03:without .DBT file
+										   x83:with    .DBT file */
+		unsigned char	update_year;	/* Last updated Date */
+		unsigned char 	update_month;
+		unsigned char	update_date;
+		unsigned long	rec_no;			/* 4 byte */
+		unsigned int	header_len;		/* len of header structure */
+		unsigned int	rec_len;		/* len of record */
+		char			resv_1[20];		/* reserved bytes (Ver 1.00) */
+		/* field descripter  32 bytes (fld_des) x field no 	*/
+		/*						  .							*/
+		/*						  .							*/
+		/*						  .							*/
+		/*						  .							*/
+		/* terminator 0xd */
+
+	} *dbf_header;
+
+	struct	fld_des {
+		char			fld_name[11];	/* Field name in ASCII zero filled */
+		char			fld_type;		/* field type CNLDM */
+		unsigned long	fld_adrs; 		/* 4 byte */
+		unsigned char	fld_len;		/* field len or len of Numeric len */
+		unsigned char	fld_dec;		/* dec point len if Data type is Numeric */
+		char			resv_2[14];		/* reserved bytes (Ver 1.00) */
+	}	*dbf_fld;
+
+
+	FILE	*handle;
+	int a,fi,fld_no,i;
+	char *field_type_name[]={"Character","Numeric","Date","Logic","Memo"};
+
+	char c;
+
+
+
+	clrscr();
+
+	if (argc<2)
+	{
+		printf("\n\n Usage : DBHDREAD TEST.DBF \n\n");
+		exit(1);
+	}
+
+	if ( (handle=fopen(argv[1],"rb")) == NULL )
+		{
+			printf("\n\nFile open error !!\n");
+			exit(-1);
+		}
+	a=fread(dbf_header,sizeof(*dbf_header),1,handle);	/* Read header */
+	if (a != 1)
+	{
+		printf("\n File read error !!\n");
+		exit(-1);
+	}
+
+	printf("id            = %d\n",dbf_header->id);
+	printf("update(YY/MM/DD)=%02d/%02d/%02d\n",dbf_header->update_year,
+					dbf_header->update_month,dbf_header->update_date);
+	printf("number of rec = %ld \n",dbf_header->rec_no);
+	printf("len of header = %d\n",dbf_header->header_len);
+
+	fld_no = (dbf_header->header_len - 1 - 32) / 32;
+			/*  field no = header len - terminator - pre header / field descript
+er len */
+	printf("Field no      = %d\n",fld_no);
+	printf("len of rec    = %d\n",dbf_header->rec_len);
+
+	for (i=0; i<fld_no; i++)
+	{
+		a=fread(dbf_fld,sizeof(*dbf_fld),1,handle);	/* Read Field descripter 
+*/
+		if (a != 1)
+		{
+			printf("\n File read error !!\n");
+			exit(-1);
+		}
+
+		printf("\n\nField name  %s ",dbf_fld->fld_name);
+		switch(dbf_fld->fld_type)
+		{
+			case 'C':	fi=0;	break;
+			case 'N':	fi=1;	break;
+			case 'D':	fi=2;	break;
+			case 'L':	fi=3;	break;
+			case 'M':	fi=4;	break;
+			default:	fi=0;
+		}
+		printf(", %s\n",field_type_name[fi]);
+		printf("Field adrs = %ld \n",dbf_fld->fld_adrs);
+		printf("Field len  = %d",dbf_fld->fld_len);
+		if (fi==1)	printf(".%d",dbf_fld->fld_dec); /* if numeric */
+	}
+	a=fread(&c,1,1,handle);	/* Read Terminator 0xd */
+	if (a != 1)
+	{
+		printf("\n File read error !!\n");
+		exit(-1);
+	}
+	printf("\n\nterminator = %x\n",c);
+	fclose(handle);
+}
+
+
+#29   김재현   (MySecret)
+[소스] dBASE III 화일 만들기                 04/03 18:06   132 line
+
+밑에 있는 dBase III화일을 읽어 오는 것을 참조로 
+한번 만들어 봤습니다.
+소스가 약간 간결하지 못한점이 있지만 
+많은 사람들한테 도움이 됐으면 합니다.
+#include <dos.h>
+#include <string.h>
+#include <dir.h>
+#include <stdio.h>
+
+#define   DB3FILE        0x03
+
+struct FIELD_RECORD {
+     char name[11];
+     char type;     
+     char *field_data_address;
+#if defined(__TINY__) || defined(__SMALL__) || defined(__MEDIUM__)
+     int space_holder;      /* field_data_address must be 32 bits   */
+#endif
+     unsigned char len;
+     unsigned char dec;
+     unsigned char reserved[14];
+};
+
+struct FIELD {
+     char name[11];
+     char type;
+     unsigned char len;
+     unsigned char dec;
+};
+
+struct DBF_HEADER {
+     unsigned char dbf_version;
+     unsigned char update_year;
+     unsigned char update_mon; 
+     unsigned char update_day; 
+     unsigned long int records;
+     unsigned int  header_len;
+     unsigned int  record_len;
+   unsigned char reserved[20];
+};
+
+
+struct DBF {
+     char filename[MAXPATH];
+     FILE *file_ptr;
+     unsigned long int current_record; 
+     enum {    /* status of file */
+          not_open = 0,
+          not_updated,
+          updated
+     } status;
+     unsigned char num_fields;   
+     struct DBF_HEADER dbf_header;
+     struct FIELD_RECORD *fields_ptr; 
+     char *record_ptr;     
+};
+
+
+void db_create(struct FIELD *field, int n, char *file_name)
+{
+     struct DBF dbf;
+     struct FIELD_RECORD field_rec;
+     union REGS r;
+     FILE *fp;
+     register int i;
+
+     dbf.dbf_header.dbf_version = DB3FILE;
+
+     r.h.ah = 0x2a;
+     intdos(&r, &r);
+     dbf.dbf_header.update_year = r.x.cx-1900;
+     dbf.dbf_header.update_day = r.h.dl;
+     dbf.dbf_header.update_mon = r.h.dh;
+
+     dbf.dbf_header.records = 0L;
+     dbf.dbf_header.header_len = (1+n)*32 + 1;
+
+     for(i=0, dbf.dbf_header.record_len=0; i<n; i++)
+          dbf.dbf_header.record_len += field[i].len;
+
+     memset(dbf.dbf_header.reserved, 0x00, 20);  /* for reserved 20 byt
+e */
+
+     fp = fopen(file_name, "wb+");
+     fwrite((void *)&dbf.dbf_header, sizeof(struct DBF_HEADER), 1, fp);
+
+
+     for(i=0; i<n; i++) {
+          memset(field_rec.name, 0x00, 11);
+          strncpy(field_rec.name, field[i].name, strlen(field[i].name))
+;
+
+          field_rec.type = field[i].type;
+          field_rec.field_data_address = NULL;
+     #if defined(__TINY__) || defined(__SMALL__) || defined(__MEDIUM__)
+
+          field_rec.space_holder = 0;             /* field_data_address
+ must be 32 bits   */
+    #endif
+          field_rec.len  = field[i].len;
+          field_rec.dec  = field[i].dec;
+
+          memset(field_rec.reserved, 0x00, 14);
+
+          fwrite(&field_rec, sizeof(struct FIELD_RECORD), 1, fp);
+     }
+
+     fputc(0x0d, fp);
+     fputc('\x1a', fp);
+     fclose(fp);
+}
+
+
+
+int main()
+{
+     struct FIELD f[] = {
+              { "NAME",    'C', 11, 0 },
+              { "ADDRESS", 'C', 50, 0 }
+     };
+     db_create(f, 2, "test.dbf");
+     return 0;
+}
+
+
+한번 분석해 보시면 쉽게 아실 겁니다.
+참.. small, large 모델 다 됩니다.
+그럼.. 안녕히들.....
+
+
+                            친구 아이디 빌려쓰는
+                            경우기가...
+
+
+#33   박진욱   (KUAAA   )
+[소스] dBase III 화일에 관한 소스            06/09 23:13   193 line
+
+안녕하세요...
+밑에 있는 dBaseIII 화일 만들기에 깜빡잊고 하나를 빼먹어서..
+다시 해보니 제대로 실행이 안되더군요...
+그래서 거기에 대한 사죄의 말을 드리면서...
+
+몇가지 더 만들어 봤습니다.
+기본적인 틀은 다른데서 약간 인용을 많이 해서..
+제가 한거라고 하기도 뭐하지만...
+그래도 많이 뜯어 고치고 해서 쓸만하게 만들었습니다.
+
+C언어로 DATABASE를 구축하고자 하는 많은 분께 도움이 되었으면
+합니다.
+
+그럼 많이 참조하세요...
+
+
+
+#define   DB2FILE        0x02
+#define   DB3FILE        0x03
+#define   DB3WITHMEMO   0x83
+#define   FIELD_REC_LEN  32
+#define   HEADER_PROLOG  32
+#define   MAX_HEADER     4129      /* 헤더의 최대 길이   */
+#define   MAX_RECORD     4000      /* 레코드의 최대 길이 */
+#define   MAX_FIELDS     128       /* 필드의 최대 길이   */
+#define   MAX_MEMO_BYTES 512       /* 메모필드의 최대 바이트수   */
+
+#define   OUT_OF_MEM     8         /* 메모리 부족           */
+#define   NO_FILE        2         /* 화일을 찾을수 없음    */
+#define   BAD_FORMAT     11        /* dBase III 화일이 아님 */
+#define   RECNO_TOO_BIG  105       /* 요구한 레코드번호가 너무 크다  */
+
+
+
+struct FIELD_RECORD {
+     char name[11];                /* 필드명          */
+     char type;                    /* 필드 형태       */
+     char *field_data_address;
+#if defined(__TINY__) || defined(__SMALL__) || defined(__MEDIUM__)
+     int space_holder;
+#endif
+     unsigned char len;            /* 필드의 길이     */
+     unsigned char dec;
+     unsigned char reserved[14];   /* 예약            */
+};
+
+struct FIELD {
+     char name[11];                /* 필드명              */
+     char type;                    /* 필드타입            */
+     unsigned char len;            /* 필드길이            */
+     unsigned char dec;
+};
+
+struct DBF_HEADER {
+     unsigned char dbf_version;    /* 버 전                   */
+     unsigned char update_year;    /* 마지막으로 수정된 년도  */
+     unsigned char update_mon;     /* 마지막으로 수정된 달    */
+     unsigned char update_day;     /* 마지막으로 수정된 날짜  */
+   unsigned long int records;    /* 레코드 갯수             */
+     unsigned int  header_len;     /* 해더의 길이             */
+     unsigned int  record_len;     /* 레코드의 길이           */
+     unsigned char reserved[20];   /* 예 약                   */
+};
+
+
+struct DBF {
+     char filename[MAXPATH];       /* 화일명             */
+     FILE *file_ptr;               /* 화일 pointer       */
+     unsigned long int current_record;  /* 현재 레코드 번호 */
+     enum {    /* 화일의 상태 */
+     not_open = 0,      /* 오픈되지 않음 */
+          not_updated,       /* Update되지 않음 */
+          updated            /* Update됨       */
+     } status;
+     unsigned char num_fields;     /* 필드의 갯수   */
+	struct DBF_HEADER dbf_header;
+     struct FIELD_RECORD *fields_ptr;   /* 필드에 대한 포인터  */
+     char *record_ptr;             /* 현재 레코드에 대한 포인터  */
+};
+
+/*--------------------------------------------------------
+       dBase III 화일을 만든다.
+       지금 만들어진 모든 함수는 Character형만 지원 한다.
+---------------------------------------------------------*/
+void db_create(struct FIELD *field, int n, char *file_name)
+{
+     struct DBF dbf;
+     struct FIELD_RECORD field_rec;
+	union REGS r;
+	FILE *fp;
+	register int i;
+
+     dbf.dbf_header.dbf_version = DB3FILE;
+
+     r.h.ah = 0x2a;
+     intdos(&r, &r);
+     dbf.dbf_header.update_year = r.x.cx-1900;
+     dbf.dbf_header.update_day = r.h.dl;
+     dbf.dbf_header.update_mon = r.h.dh;
+
+     dbf.dbf_header.records = 0L;
+	dbf.dbf_header.header_len = (1+n)*32 + 1;
+
+     for(i=0, dbf.dbf_header.record_len=0; i<n; i++)
+          dbf.dbf_header.record_len += field[i].len;
+     dbf.dbf_header.record_len ++;
+
+     memset(dbf.dbf_header.reserved, 0x00, 20);  /* for reserved 20 byt
+e */
+
+	fp = fopen(file_name, "wb+");
+     fwrite((void *)&dbf.dbf_header, sizeof(struct DBF_HEADER), 1, fp);
+
+
+     for(i=0; i<n; i++) {
+          memset(field_rec.name, 0x00, 11);
+          strncpy(field_rec.name, field[i].name, strlen(field[i].name))
+;
+
+          field_rec.type = field[i].type;
+          field_rec.field_data_address = NULL;
+     #if defined(__TINY__) || defined(__SMALL__) || defined(__MEDIUM__)
+
+          field_rec.space_holder = 0;             /* field_data_address
+ must be 32 bits   */
+     #endif
+          field_rec.len  = field[i].len;
+          field_rec.dec  = field[i].dec;
+
+          memset(field_rec.reserved, 0x00, 14);
+
+          fwrite(&field_rec, sizeof(struct FIELD_RECORD), 1, fp);
+  }
+
+/*     rewind(fp);*/
+     fputc(0x0d, fp);
+     fputc('\x1a', fp);
+     fclose(fp);
+}
+
+/*----------------------------------------------------------
+     dBaseIII 화일을 오픈한다.
+----------------------------------------------------------*/
+int db_open(struct DBF *d)
+{
+     int i;
+     int n;
+     d->status = not_open;
+     if ((d->file_ptr = fopen(d->filename, "rb+")) == NULL)
+          return NO_FILE;
+      rewind(d->file_ptr);
+      fread((void*)&d->dbf_header.dbf_version, (unsigned)1,
+              (unsigned)12, d->file_ptr);
+
+     /* 버젼을 체크한다. */
+     if(d->dbf_header.dbf_version != DB3FILE
+	 && d->dbf_header.dbf_version != DB3WITHMEMO
+	 || d->dbf_header.update_mon == 0) {
+          fclose(d->file_ptr);
+          return(BAD_FORMAT);
+     }
+     d->current_record = 0L;
+	d->num_fields = ((d->dbf_header.header_len - (FIELD_REC_LEN+1)) / HEAD
+ER_PROLOG);
+	if((d->fields_ptr = (struct FIELD_RECORD *)malloc((unsigned)(d->num_fi
+elds * FIELD_REC_LEN)))==NULL)
+          return OUT_OF_MEM;
+
+     /* position at field descriptions */
+     fseek(d->file_ptr, (long)HEADER_PROLOG, 0);
+
+     /* read into field description array */
+     fread((void *)d->fields_ptr, sizeof *d->fields_ptr, (unsigned)d->n
+um_fields, d->file_ptr);
+
+	if((d->record_ptr = (char *) malloc (d->dbf_header.record_len)) == NUL
+L)
+          return OUT_OF_MEM;
+
+     /* initialize pointers to fields in record. */
+     for(i=0, n=1; i<d->num_fields; i++) {   /* n is offset from start 
+of rec */
+     /* @ n=0 is the deleted record flag */
+          d->fields_ptr[i].field_data_address = d->record_ptr + n;
+          n += d->fields_ptr[i].len;
+     }
+     d->status = not_updated;
+     return 0;
+}
+
+
+이상입니다.   혹시 틀린데가 있으면 연락주세요..
+
+
+
+#34   박진욱   (KUAAA   )
+[소스] dBase III화일에 관한거 두번째         06/09 23:19   152 line
+
+아래에 이어 두번째 입니다.
+많이 많이 참조하세요..
+화일 닫는부분과 레코드 읽고, 쓰기, 추가하는 부분.
+
+
+
+/*-------------------------------------------------------
+     dBaseIII 화일 닫기
+-------------------------------------------------------*/
+int  db_close(struct DBF *d)
+{
+     union REGS r;
+     if(d->status == updated) {
+          r.h.ah = 0x2a;
+          intdos(&r, &r);
+		d->dbf_header.update_day = r.h.dl;
+		d->dbf_header.update_mon = r.h.dh;
+		d->dbf_header.update_year = r.x.cx-1900;
+
+       rewind(d->file_ptr);   /*  화일의 처음으로 이동 */
+          /* 업데이트된 상태를 쓴다. */
+          fwrite(&d->dbf_header, 12, 1, d->file_ptr);
+
+          /* 화일의 끝으로 간다. */
+          fseek(d->file_ptr, 0L, 2);
+
+          /* EOF를 쓴다. */
+          fputc('\x1a', d->file_ptr);
+     }
+
+     /* db_open함수에서 할당한 메모리 반환 */
+     free(d->fields_ptr);
+     free(d->record_ptr);
+     fclose(d->file_ptr);
+}
+
+
+
+/*--------------------------------------------------
+     dBase III 에 레코드들 증가시킨다.
+--------------------------------------------------*/
+void add_rec(struct DBF *d)
+{
+     fseek(d->file_ptr,((long)d->dbf_header.header_len+
+       (d->dbf_header.records * d->dbf_header.record_len)), 0);
+     fwrite(d->record_ptr, d->dbf_header.record_len,
+             1, d->file_ptr);
+	d->current_record = ++d->dbf_header.records;
+	d->status = updated;
+}
+
+
+
+/*-------------------------------------------------
+     dBase III에 레코드를 쓴다.
+     r번째 레코드에 쓴다.
+-------------------------------------------------*/
+int put_rec(struct DBF *d, unsigned long int r)
+{
+	if(r > d->dbf_header.records)
+          return RECNO_TOO_BIG;
+     if(r > 0L) {
+          fseek(d->file_ptr, ((long)d->dbf_header.header_len+
+               ((r-1)*d->dbf_header.record_len)), 0);
+          fwrite(d->record_ptr, d->dbf_header.record_len,
+                1, d->file_ptr);
+          d->status = updated;
+     }
+     d->current_record = r;
+     return 0;
+}
+
+
+/*-------------------------------------------------
+     dBase III화일에 레코드를 읽어온다.
+     r번째에 있는 record를 읽는다.
+-------------------------------------------------*/
+int get_rec(struct DBF *d, unsigned long int r)
+{
+     if(r > d->dbf_header.records) /* r값이 전체레코드수보다 클때*/
+          return (RECNO_TOO_BIG);
+     if(r > 0L) {
+          fseek(d->file_ptr, ((long)d->dbf_header.header_len +
+                 ((r-1L)*d->dbf_header.record_len)), 0);
+		fread(d->record_ptr, d->dbf_header.record_len, 1, d->file_ptr);
+          d->current_record = r;
+          return 0;
+     }
+     return (RECNO_TOO_BIG);
+}
+
+
+다음에 있는 것은 시험해보는 것입니다.
+dBase화일을 하나 만들고 거기에 해당하는 정보를 보는
+프로그램입니다.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#ifdef __TURBOC__
+#include <mem.h>
+#elif  __MICORSOFTC__
+#include <memory.h>
+#endif
+#include <dos.h>
+
+
+
+void main(void)
+{
+	struct DBF d;
+	int errornum;
+	int i;
+     struct FIELD f[] = {
+      { "NAME",    'C', 11, 0 },
+ { "ADDRESS", 'C', 50, 0 }
+     };
+     db_create(f, 2, "test.dbf");
+
+     strcpy(d.filename, "test.dbf");
+     if((errornum = db_open(&d)) != 0) {
+		printf("Error open file:");
+		switch(errornum) {
+			case OUT_OF_MEM:
+                    puts("메모리 부족.\n");
+				break;
+			case NO_FILE:
+                    puts("화일을 열수 없습니다.\n");
+				break;
+			case BAD_FORMAT:
+                    puts("dBaseIII 화일이 아닙니다.\n");
+				break;
+		}
+		exit(1);
+	}
+     printf("\n화일 이름   : %s", d.filename);
+     printf("\n현재 레코드 : %ld", d.current_record);
+     printf("\nDBF 버젼    : %d", d.dbf_header.dbf_version);
+	if(d.status == not_updated)
+          puts("\nupdate된 상태가 아닙니다.");
+	else
+          puts("\nupdate된 상태.");
+     printf("\n필드 갯수 : %d", d.num_fields);
+	printf("\nUpdate Year : %d", d.dbf_header.update_year);
+	printf("\nUpdate Month : %d", d.dbf_header.update_mon);
+	printf("\nUpdate Day : %d", d.dbf_header.update_day);
+     printf("\n레코드의 갯수 : %ld",d.dbf_header.records);
+     printf("\n레코드의 길이 : %d", d.dbf_header.record_len);
+     for(i=0; i<d.num_fields; i++)
+          printf("\n필드 #%d : %s", i, d.fields_ptr[i].name);
+}

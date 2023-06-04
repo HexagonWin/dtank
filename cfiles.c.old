@@ -1,0 +1,252 @@
+
+#include "bbs.h"
+
+cuploadfile()
+{
+    FILE *fp1,*fp2;
+    int i,j;
+    char buf[80],buf2[80],ch;
+    struct dis_list up_title;
+    struct dis_list uf_title;
+    int num;
+
+    logo("upload.log",0); /* 멈추지 않고 출력 */
+    printf("\r\n 화일을 업로드하려고 계십니다.");
+    printf("\r\n 업로드할 화일명을 넣으세요(틀리면 등록이 안됩니다)");
+    printf("\r\n 화일명: ");
+    lineinput(up_title.filename,29);
+    while(1) {
+	printf("\r\n\r\n 전송할 프로토콜을 선택하세요.");
+	printf("\r\n 0:취소 1:Z모뎀(1) 2:Z모뎀(2) 3:KERMIT U:운영자업로드");
+	printf("\r\n >> "); lineinput(buf,3,YEA);
+
+	if (buf[0] =='1') {
+	    printf("\r\n rz 로 화일을 받겠습니다.");
+	    chdir("ftp");
+	    ioctl(0,TCSETAF,&systerm);
+	    system("rz");
+            sprintf(buf,"chmod a+rw %s",up_title.filename);
+            system(buf);
+	    ioctl(0,TCSETAF,&mbuf);
+	    chdir(getenv("HOME"));
+	    break;
+	}
+	else if (buf[0]=='2') {
+	    printf("\r\n rz -e로 화일을 받겠습니다.");
+	    chdir("ftp");
+	    ioctl(0,TCSETAF,&systerm);
+	    system("rz -e");
+	    sprintf(buf,"chmod a+rw %s",up_title.filename);
+	    system(buf);
+	    ioctl(0,TCSETAF,&mbuf);
+	    chdir(getenv("HOME"));
+	    
+	    break;
+	}
+	else if (buf[0] =='3') {
+	    printf("\r\n 아직 지원되지 않습니다.");
+	}
+	else if (buf[0] =='U') {
+	    printf("\r\n 운영자 업로드입니다. ");
+	   /* 일단 ftp로 옮긴다. */
+	    printf("\r\n 일반인은 사용할 수 없어요.");
+	    ioctl(0,TCSETAF,&systerm);
+            sprintf(buf,"chmod a+rw %s",up_title.filename);
+            system(buf);
+	    sprintf(buf,"mv sysopfile/%s ftp",up_title.filename); 
+	    system(buf);
+	    ioctl(0,TCSETAF,&mbuf);
+	    chdir(getenv("HOME"));
+	    break;
+	}
+	else if (buf[0]=='0') {
+	    printf("\r\n 나중에 업로드하세요. 바쁘시면");
+	    printf("\r\n 그럼 즐거운 통신되세요.");
+	    pressreturn();
+	    reprint=YEA; return;
+	}
+    } 	    
+    j = strlen(up_title.filename);
+    for (i=0;i<j;i++) {
+	buf[i] = tolower(up_title.filename[i]);
+    }
+    buf[i] = '\0';
+    sprintf(up_title.filename,"%s",buf);
+    sprintf(buf,"ftp/%s",up_title.filename);
+    
+    if( (fp1=fopen(buf,"r")) == NULL ) {
+        j = strlen(up_title.filename);
+	for (i = 0;i<j;i++) {
+	    buf2[i] = toupper(up_title.filename[i] );
+	}
+	buf2[i] = '\0';
+	sprintf(up_title.filename,"%s",buf2);
+	sprintf(buf2,"ftp/%s",up_title.filename);
+	rename(buf2,buf);
+	if((fp2 = fopen(buf2,"r"))==NULL) {
+	    printf("\r\n 화일전송이 되지 않았어요.");
+	    printf("\r\n 등록을 할 수 없습니다.");
+	    printf("\r\n 화일이름이나 전송이 잘못 되었어요.");
+	    printf("\r\n 화일이름과 업로드 상황을 설명하시면");
+	    printf("\r\n 최대로 복구하여 등록하여드리겠습니다.");
+            pressreturn(); reprint=YEA; return;
+	}
+	fclose(fp2);
+
+    }
+    fseek(fp1,0,2); up_title.file_size = ftell(fp1);
+    pressreturn();printf("\r\n 화일이 전송이 되었습니다.");
+    fclose(fp1);
+    printf("\r\n 크기 %d이고 화일명 %s인 자료 맞습니까(Y/n)",up_title.file_size,\
+	up_title.filename);
+    oneinput(buf);
+    if(buf[0] == 'n') {
+	printf("\r\n 자료 전송이 잘 못 되었습니다.");
+	report("uploadfail",up_title);
+	pressreturn(); reprint=YEA; return;
+    }
+    pressreturn(); printf("\r\n 화일설명을 쓰실 차례입니다."); pressreturn();
+    sprintf(buf,"circle/%s/fboards",nmenu->ccode);
+    num=lineeditor(buf,cnmenu->ccode);
+/* 화일을 등록합니다. */
+    printf("\r\n 화일을 등록합니다(본디렉토리로)");
+    sprintf(buf,"cp ftp/%s circle/%s/files",up_title.filename,nmenu->ccode);
+    ioctl(0,TCSETAF,&systerm);
+    system(buf);
+    ioctl(0,TCSETAF,&mbuf);
+    sprintf(buf,"ftp/%s/%s",nmenu->file,up_title.filename);
+    if ( (fp1=fopen(buf,"r")) == NULL ) {
+	printf("\r\n 화일등록이 안 되었습니다. ***심각***");
+	printf("\r\n 운영자에게 알려주세요.    ***심각***");
+	ioctl(0,TCSETAF,&systerm); 
+        sprintf(buf,"cp ftp/%s ftp/fail",up_title.filename);system(buf);
+	sprintf(buf,"rm ftp/%s",up_title.filename);
+	ioctl(0,TCSETAF,&mbuf);
+	report("registererror",up_title);
+	pressreturn(); reprint=YEA; return;
+    } 
+    fclose(fp1);
+    printf("\r\n 화일을 동호회%s자료디렉토리로 등록했습니다.",nmenu->ccode);
+    ioctl(0,TCSETAF,&systerm); 
+    sprintf(buf,"rm ftp/%s",up_title.filename);system(buf);
+    ioctl(0,TCSETAF,&mbuf);
+    sprintf(buf,"circle/%s/fboards/%s",nmenu->ccode,cnmenu->ccode);
+    if((fp1=fopen(buf,"r+")) == NULL ) {
+	printf("\r\n 화일게시물헤더가 안 열립니다(등록중단)");
+	report("registererror2",up_title);
+	pressreturn(); return;
+    }
+    fseek(fp1,(num-1)*sizeof(struct dis_list),0);
+    fread((char*)&uf_title,sizeof(struct dis_list),1,fp1);
+    uf_title.file_size = up_title.file_size;
+    strcpy(uf_title.filename,up_title.filename);
+    uf_title.down = 0;
+    uf_title.look = 0;
+    fseek(fp1,(num-1)*sizeof(struct dis_list),0);
+    fwrite((char*)&uf_title,sizeof(struct dis_list),1,fp1);
+    fclose(fp1);
+    report("up",uf_title);
+    printf("\r\n 업로드가 무사히 마쳐졌습니다.");
+    logo("uploadend.log",1);
+    return;
+}
+        	
+    	   
+cdownloadfile(cmd)
+char *cmd;
+{
+    FILE *fp1;
+    char buf[80];
+    int i;
+    char ch,*tmp;
+    struct dis_list down_title;
+    tmp = tmp_buf;  /* 필요한 것이다. */
+
+    tmp = &cmd[2];
+    i = atoi(tmp);
+
+    if (i ==0 ) i = now_num; /* 만일 번호가 지정되어 있지 않으면
+				현재 읽고 있는 화일의 번호를 읽는다.*/
+    if ( i>0 && i<top_num+1) {
+	logo("download.log",0);
+	printf("\r\n %d 번 화일을 다운하시렵니다.",i);
+	sprintf(buf,"circle/%s/fboards/%s",nmenu->ccode,cnmenu->ccode);
+	if((fp1 = fopen(buf,"r"))==NULL) {
+	    printf("\r\n 화일헤더를 읽을 수 없습니다.");
+	    printf("\r\n 전송취소"); pressreturn(); return;
+	}
+	fseek(fp1,(i-1)*sizeof(struct dis_list),0);
+	fread((char*)&down_title,sizeof(struct dis_list),1,fp1);
+	fclose(fp1);
+	while(1) {
+	    printf("\r\n %s를 전송합니다.",down_title.filename);
+            printf("\r\n\r\n 전송할 프로토콜을 선택하세요.");
+            printf("\r\n 0:취소 1:Z모뎀(1) 2:Z모뎀(2) 3:KERMIT ");
+            printf("\r\n >> "); lineinput(buf,3,YEA);
+	    if(buf[0] =='1') {
+		printf("\r\n sz 으로 보냅니다. ");
+		printf("\r\n 전송프로토콜을 실행시키세요.");	
+		ch = '*';
+		if(work.chose==' ') {
+		    ch = ' ';
+		    change_in();
+		}
+		sprintf(buf,"circle/%s/files",nmenu->ccode);
+		chdir(buf);
+		sprintf(buf,"sz %s",down_title.filename);
+		ioctl(0,TCSETAF,&systerm);
+		system(buf);
+		ioctl(0,TCSETAF,&mbuf);
+		chdir(getenv("HOME"));
+		if(ch==' ') {
+		    change_in();
+		}
+		printf("\r\n\r\n 전송이 완료되었습니다.");
+		logo("downloadend.log",1);
+/*		report("down",down_title); */
+		break;
+	    }
+	    if(buf[0] =='2') {
+                printf("\r\n sz -e으로 보냅니다. ");
+                printf("\r\n 전송프로토콜을 실행시키세요.");    
+                ch = '*';
+                if(work.chose==' ') {
+                    ch = ' ';
+                    change_in();
+                }
+                sprintf(buf,"circle/%s/files",cnmenu->ccode);
+                chdir(buf);
+                sprintf(buf,"sz -e %s",down_title.filename);
+                ioctl(0,TCSETAF,&systerm);
+                system(buf);
+                ioctl(0,TCSETAF,&mbuf);
+                chdir(getenv("HOME"));
+                if(ch==' ') {
+                    change_in();
+                }
+                printf("\r\n\r\n 전송이 완료되었습니다.");
+                logo("downloadend.log",1);
+/*                report("down",down_title); */
+		sprintf(buf,"circle/%s/fboards/%s",nmenu->ccode,cnmenu->ccode);
+		fp1 = fopen(buf,"r+");
+		fseek(fp1,(i-1)*sizeof(struct dis_list),0);
+		fread((char*)&down_title,sizeof(struct dis_list),1,fp1);
+		down_title.down++;
+		fseek(fp1,(i-1)*sizeof(struct dis_list),0);
+		fwrite((char*)&down_title,sizeof(struct dis_list),1,fp1);
+		fclose(fp1);
+                break;
+            }
+	    if (buf[0] == '3') {
+		printf("\r\n 아직 지원되지 않습니다.");
+		pressreturn(); 
+	    }
+	    else if(buf[0] =='0') {
+		printf("\r\n 그래요. 다운받아 뭐해요. 취소합니다.");
+		pressreturn(); break;
+	    }
+	} 
+    }
+
+}
+

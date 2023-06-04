@@ -1,0 +1,696 @@
+boardisplay.c:	bid=nmenu->form;
+boardisplay.c:                if (nmenu->form=='f' || nmenu->form=='F')  {
+boardisplay.c:                else if (nmenu->form=='l' || nmenu->form=='L') {
+boardisplay.c:                else if (!strcmp(nmenu->ccode,"TRASH")) {
+boardisplay.c:    if(nmenu->form=='f' || nmenu->form=='F') {
+boardisplay.c:    else if(nmenu->form =='l' || nmenu->form=='L') {
+boardisplay.c:    else if(nmenu->form=='C' && (cnmenu->form=='L'||cnmenu->form=='l')) { 
+boardisplay.c:    else if(nmenu->form=='C' && (cnmenu->form=='F'||cnmenu->form=='f')) {
+boardisplay.c:    if(nmenu->form=='l'|| nmenu->form=='L') {
+boardisplay.c:    else if(nmenu->form =='f' || nmenu->form =='F') {
+boardisplay.c:    else if(nmenu->form=='C' && (cnmenu->form=='L'||cnmenu->form=='l')) {
+boardisplay.c:    else if(nmenu->form=='C' &&(cnmenu->form=='F'||cnmenu->form=='f')) {
+boardisplay.c:    if(nmenu->form=='l' || nmenu->form=='L'|| \
+boardisplay.c:      (nmenu->form=='C' && (cnmenu->form=='l' || cnmenu->form=='L'))) {
+boardisplay.c:    else if(nmenu->form=='f' || nmenu->form=='F'|| \
+boardisplay.c:      (nmenu->form=='C' && (cnmenu->form=='F'||cnmenu->form=='f'))) {
+ccommands.c:    if((cnmenu->form == 'L' && cnmenu->w <= pf.level) ||
+ccommands.c:	(cnmenu->form == 'l' && ((circlecheck) || cnmenu->w == 0))) {
+ccommands.c:	    sprintf(buf,"circle/%s/boards",nmenu->ccode);
+ccommands.c:	    num=lineeditor(buf,cnmenu->ccode);
+ccommands.c:	    sprintf(buf,"circle/%s/boards",nmenu->ccode);
+ccommands.c:	    sprintf(buf,"circle/%s/boards",nmenu->ccode);
+ccommands.c:	    sprintf(buf,"circle/%s/boards",nmenu->ccode);
+ccommands.c:	    num = lineeditor(buf,cnmenu->ccode);
+ccommands.c:    else if((cnmenu->form == 'F' && \
+ccommands.c:        (cnmenu->form == 'f' && \
+ccommands.c:	sprintf(buf,"circle/%s/fboards",nmenu->ccode);
+ccommands.c:    if (cnmenu->form=='l'||cnmenu->form=='L') 
+ccommands.c:	sprintf(buf,"circle/%s/boards/%s",nmenu->ccode,cnmenu->ccode);
+ccommands.c:    else if (cnmenu->form=='f' || cnmenu->form=='F')
+ccommands.c:	sprintf(buf,"circle/%s/fboards/%s",nmenu->ccode,cnmenu->ccode);
+ccommands.c:    if (!strcmp(cnmenu->ccode,"dongari")) {
+ccommands.c:    cnmenu=cnmenu->upp;
+ccommands.c:    if(cnmenu->neqp !=NULL) {
+ccommands.c:        cnmenu=cnmenu->neqp;
+ccommands.c:        if((cnmenu->form=='R' || cnmenu->form=='E')\
+ccommands.c:	 && (cnmenu->w > pf.level)) {
+ccommands.c:            cnmenu=cnmenu->upp;
+ccommands.c:    if(cnmenu->aeqp!=NULL) {
+ccommands.c:        cnmenu=cnmenu->aeqp;
+ccommands.c:        if((cnmenu->form=='R' || cnmenu->form == 'E') &&\
+ccommands.c:	 (cnmenu->w > pf.level)) {
+ccommands.c:            cnmenu=cnmenu->upp;
+ccommands.c:    sprintf(buf,"circle/%s/files",nmenu->ccode);
+ccommands.c:    sprintf(buf2,"circle/%s/fboards",nmenu->ccode);
+ccommands.c:    uploadfile(buf,buf2,cnmenu->ccode);
+ccommands.c:    if( (cnmenu->form=='f' && !circlecheck) ) {
+ccommands.c:    sprintf(buf,"circle/%s/fboards",nmenu->ccode);
+ccommands.c:    sprintf(buf2,"circle/%s/files",nmenu->ccode);
+ccommands.c:    downloadfile(cmd,buf,cnmenu->ccode,buf2);
+ccommands.c:    sprintf(buf,"%s",cnmenu->ccode);
+ccommands.c:    if(cnmenu->form=='l'||cnmenu->form=='L') {
+ccommands.c:	sprintf(buf2,"circle/%s/boards",nmenu->ccode);
+ccommands.c:    sprintf(fhead,"%s",cnmenu->ccode);
+ccommands.c:    if(cnmenu->form=='f' || cnmenu->form=='F') {
+ccommands.c:	sprintf(direc,"circle/%s/fboards",nmenu->ccode);
+ccommands.c:	sprintf(filedir,"circle/%s/files",nmenu->ccode);
+ccommands.c:	sprintf(direc,"circle/%s/boards",nmenu->ccode);
+ccommands.c:	strcpy(fhead,cnmenu->ccode);
+ccommands.c:            sprintf(direc,"circle/%s/fboards",nmenu->ccode);
+ccommands.c:            strcpy(fhead,cnmenu->ccode);
+ccommands.c:            sprintf(direc,"circle/%s/fboards",nmenu->ccode);
+ccommands.c:            strcpy(fhead,cnmenu->ccode);
+ccommands.c:    sprintf(tmp,"mv circle/%s/%s circle/%s/%s.backup",nmenu->ccode,buf,\
+ccommands.c:      nmenu->ccode,buf);
+ccommands.c:    sprintf(buf,"circle/%s",nmenu->ccode);
+circle.c:    	printf("\r\n (%s)동아리운영자메뉴입니다.",nmenu->ccode);
+circle.c:	sprintf(buf,"circle/%s/CUSER.%s.tmp",nmenu->ccode,nmenu->ccode);
+circle.c:	    sprintf(buf2,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c:	    sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c:		    sprintf(buf,"%s.log",nmenu->ccode);
+circle.c:	    sprintf(buf,"circle/%s/CUSER.%s.tmp",nmenu->ccode,nmenu->ccode);
+circle.c:    sprintf(buf,"circle/%s/CUSER.%s.tmp",nmenu->ccode,nmenu->ccode);
+circle.c:    sprintf(buf,"circle/%s/APPLYMEMO.%s",nmenu->ccode,nmenu->ccode);
+circle.c:	    sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c:    sprintf(buf,"circle/%s/CUSER.%s.tmp",nmenu->ccode,nmenu->ccode);
+circle.c:    sprintf(buf,"circle/%s/APPLYMEMO.%s",nmenu->ccode,nmenu->ccode);
+circle.c:    sprintf(buf,"circle/%s/CUSER.%s.tmp",nmenu->ccode,nmenu->ccode);
+circle.c:    sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c: 	sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c:            sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c:	    sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c:            sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c:		gaip(nmenu->ccode); /* nmenu->r은 동호회 번호이다.*/
+circle.c:	 	taltaoe(nmenu->r); /* nmenu->r은 동호회 번호이다 */
+circle.c:	    sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+circle.c:    sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,circlename);
+circle.c:    sprintf(buf,"circle/%s/CUSER.%s.tmp",nmenu->ccode,circlename);
+circle.c:    sprintf(buf,"circle/%s/APPLYMEMO.%s",nmenu->ccode,circlename);
+circle.c:    sprintf(buf,"circle/%s/CUSER.%s.tmp",nmenu->ccode,circlename);
+circle.c:    sprintf(buf,"circle/BBSCMENUS.%s",nmenu->ccode);
+circle.c:	sprintf(buf,"circle/CMENUS.%s",nmenu->ccode);
+circle.c:        cnmenu->neqp = cnmenu->aeqp = NULL;
+circle.c:        cnmenu->upp = cnmenu;
+circle.c:        cnmenu->downp = cmtmp;
+circle.c:            if(cnmenu->deep < cmtmp->deep) {
+circle.c:                cnmenu->downp = cmtmp;
+circle.c:                cnmenu->neqp = cmtmp->aeqp = NULL;
+circle.c:            else if(cnmenu->deep == cmtmp->deep) {
+circle.c:                cnmenu->downp = NULL;
+circle.c:                cnmenu->neqp = cmtmp;
+circle.c:                cmtmp->upp = cnmenu->upp;
+circle.c:            else if(cnmenu->deep > cmtmp->deep) {
+circle.c:                cnmenu->downp = NULL;
+circle.c:                cnmenu->neqp = NULL;
+circle.c:                j = cnmenu->deep - cmtmp->deep;
+circle.c:                    cnmenu = cnmenu->upp;
+circle.c:                cnmenu->neqp = cmtmp;
+circle.c:                cmtmp->upp = cnmenu->upp;
+circle.c:        cnmenu->neqp=cnmenu->aeqp=NULL;
+circle.c:        cnmenu->upp=cnmenu;
+circle.c:        cnmenu->downp=cmtmp;
+circle.c:        cnmenu->form='M'; cnmenu->level=cnmenu->del=cnmenu->w= cnmenu->r =\
+circle.c:                cnmenu->deep=0;
+circle.c:        strcpy(cnmenu->ccode,"dongari");
+circle.c:        strcpy(cnmenu->list,"동아리");
+circle.c:        strcpy(cnmenu->file,"");
+circle.c:            while(cnmenu->neqp != NULL) {
+circle.c:                        ++j,cnmenu->choice,cnmenu->form,cnmenu->list,cnmenu->ccode);
+circle.c:                        cnmenu->w,cnmenu->r,cnmenu->del,cnmenu->level);
+circle.c:                if(nmenu->form == 'f' || nmenu->form == 'F') \
+circle.c:                        printf(" %s",cnmenu->file);
+circle.c:                cnmenu = cnmenu->neqp;
+circle.c:                ++j,cnmenu->choice,cnmenu->form,cnmenu->list,cnmenu->ccode);
+circle.c:                cnmenu->w,cnmenu->r,cnmenu->del,cnmenu->level);          
+circle.c:            if(nmenu->form == 'f' || nmenu->form == 'F') \
+circle.c:                printf(" %s",cnmenu->file);
+circle.c:                if(cnmenu->neqp != NULL) cnmenu = cnmenu->neqp;
+circle.c:            if(cnmenu->form == 'M') {
+circle.c:                    if(cnmenu->neqp != NULL) {
+circle.c:                        cnmenu = cnmenu->neqp;
+circle.c:            printf("\r\n <%s> [%s]",cnmenu->list,cnmenu->ccode);
+circle.c:            while(cnmenu->neqp != NULL) cnmenu = cnmenu->neqp;
+circle.c:                    if(cnmenu->neqp != NULL) {
+circle.c:                        cnmenu = cnmenu->neqp;
+circle.c:                cmtmp->neqp = cnmenu->neqp;
+circle.c:                cmtmp->upp = cnmenu->upp;
+circle.c:                cnmenu->neqp = cmtmp;
+circle.c:                cmtop->downp = cnmenu->neqp;
+circle.c:                    if(cnmenu->neqp != NULL) {
+circle.c:                        cnmenu = cnmenu->neqp;
+circle.c:                cmtmp->neqp = cnmenu->neqp;
+circle.c:    if(buf[0]!='\0') sprintf(cnmenu->choice,buf);
+circle.c:    if(buf[0]!='\0') cnmenu->form = buf[0];
+circle.c:    if(buf[0]!='\0') sprintf(cnmenu->ccode,"%s",buf);
+circle.c:    if(buf[0]!='\0') sprintf(cnmenu->list,"%s",buf);
+circle.c:    if((cnmenu->form == 'M') && (cnmenu->downp == NULL)) {
+circle.c:        cnmenu->w = atoi(buf);
+circle.c:        cnmenu->r = atoi(buf);
+circle.c:        if(cnmenu->form == 'L' || cnmenu->form == 'l' ||
+circle.c:          cnmenu->form == 'V' || cnmenu->form == 'v') {
+circle.c:            cnmenu->level = atoi(buf);
+circle.c:        else if(nmenu->form == 'F' || nmenu->form == 'f') {
+circle.c:            cnmenu->level = atoi(buf);
+circle.c:            cnmenu->del = atoi(buf);
+circle.c:            strcpy(cnmenu->file,buf);
+circle.c:	sprintf(cnmenu->manager,"%s",buf);
+circle.c:    cnmenu->neqp = cmtmp;
+circle.c:    cmtmp->upp = cnmenu->upp;
+circle.c:    cnmenu->downp = cnmenu->neqp = NULL;
+circle.c:    cnmenu->downp = cmtmp;
+circle.c:    cnmenu->downp = cnmenu->neqp = NULL;
+circle.c:    sprintf(buf,"circle/BBSCMENUS.%s",nmenu->ccode);
+circle.c:    sprintf(buf2,"circle/BBSCMENUS.%s.backup",nmenu->ccode);
+circle.c:    sprintf(buf,"%s/circle/BBSCMENUS.%s",getenv("HOME"),nmenu->ccode);
+circle.c:        printf("\r\n%8s %s",cnmenu->ccode,cnmenu->list);
+circle.c:        cnmenu = cnmenu->downp;
+circle.c:            cnmenu->deep = i;
+circle.c:            printf("\r\n%8s %s",cnmenu->ccode,cnmenu->list);
+circle.c:            if(cnmenu->downp == NULL) {
+circle.c:                if(cnmenu->neqp == NULL) {
+circle.c:                        cnmenu = cnmenu->upp;
+circle.c:                        if(cnmenu->neqp != NULL || i == 0) break;
+circle.c:                    if(i) cnmenu = cnmenu->neqp;
+circle.c:                    cnmenu = cnmenu->neqp;
+circle.c:                cnmenu = cnmenu->downp;
+circle.c:    if(cnmenu->form == 'R') {  /* 게시물이실행화일.이것은 기본제공기능 */
+circle.c:        if(cnmenu->w <= pf.level) {
+circle.c:	    sprintf(buf,"%s.log",cnmenu->ccode);
+circle.c:            if(!strcmp(cnmenu->ccode,"chat")) { /* 대화실 */
+circle.c:		cnmenu=cnmenu->upp;
+circle.c:            else if(!strcmp(cnmenu->ccode,"Apply")) {
+circle.c:                cnmenu=cnmenu->upp;
+circle.c:	    else if(!strcmp(cnmenu->ccode,"Manage")) {
+circle.c:		cnmenu=cnmenu->upp;
+circle.c:	    else if(!strcmp(cnmenu->ccode,"newrmail")) {
+circle.c:		if(upermenu==1) {cnmenu=cnmenu->upp;upermenu=0;}
+circle.c:	    else if(!strcmp(cnmenu->ccode,"newwmail")) {
+circle.c:		cnmenu=cnmenu->upp;
+circle.c:	    else if(!strcmp(cnmenu->ccode,"newcmail")) {
+circle.c:		cnmenu=cnmenu->upp;upermenu=0;
+circle.c:	    else if(!strcmp(cnmenu->ccode,"mailist")) {
+circle.c:		cnmenu= cnmenu->upp;
+circle.c:	    else if(!strcmp(cnmenu->ccode,"profile")) {
+circle.c:		cnmenu=cnmenu->upp;
+circle.c:            cnmenu = cnmenu->upp;
+circle.c:    else if(cnmenu->form == 'L' || (cnmenu->form == 'l' && circlecheck)) { 
+circle.c:	sprintf(buf,"%s.log",cnmenu->ccode);
+circle.c:	sprintf(buf,"circle/%s/boards",nmenu->ccode);
+circle.c:        show_board(buf,cnmenu->ccode,cboardcmd);
+circle.c:	if(upermenu==1) {cnmenu=cnmenu->upp;upermenu=0;}
+circle.c:    else if(cnmenu->form == 'F' || (cnmenu->form == 'f' && circlecheck) ) {  
+circle.c:	sprintf(buf,"%s.log",cnmenu->ccode);
+circle.c:	sprintf(buf,"circle/%s/fboards",nmenu->ccode);
+circle.c:        show_board(buf,cnmenu->ccode,cfilecmd);
+circle.c:	if(upermenu==1) {cnmenu=cnmenu->upp;upermenu=0;}
+circle.c:    else cnmenu = cnmenu->upp;
+circle.c:        if(cnmenu->neqp != NULL) {
+circle.c:            cnmenu = cnmenu->neqp;
+circle.c:            if(cnmenu->downp != NULL) {
+circle.c:                cnmenu = cnmenu->downp;
+circle.c:                cnmenu = cnmenu->upp;
+circle.c:                if(cnmenu->downp == cmtmp) {
+circle.c:                    cnmenu->downp = NULL;
+circle.c:                    cnmenu = cnmenu->downp;
+circle.c:                    while(cnmenu->neqp != cmtmp) {
+circle.c:                        cnmenu = cnmenu->neqp;
+circle.c:                    cnmenu->neqp = NULL;
+commands.c:    sprintf(fileheader,"%s",nmenu->ccode);        
+commands.c:    bid=nmenu->form;
+commands.c:    if (nmenu->form!='C') nmenu=nmenu->upp;
+commands.c:    if((nmenu->form == 'L' && nmenu->w <= pf.level) ||
+commands.c:	(nmenu->form == 'l' && ((nmenu->w & pf.circle) || nmenu->w == 0))) {
+commands.c:	    num=lineeditor("boards",nmenu->ccode);
+commands.c:	    num = lineeditor("boards",nmenu->ccode);
+commands.c:    else if((nmenu->form == 'F' && (!strcmp(pf.id,"sysop")||!strcmp(pf.id,"darker"))) ||
+commands.c:        (nmenu->form == 'f' && (!strcmp(pf.id,"sysop")||!strcmp(pf.id,"darker")) ) ) {
+commands.c:	num=lineeditor("fboards",nmenu->ccode);
+commands.c:    else if(nmenu->form=='T') {
+commands.c:    if (nmenu->form=='l'||nmenu->form=='L') 
+commands.c:	sprintf(buf,"boards/%s",nmenu->ccode);
+commands.c:    else if (nmenu->form=='f' || nmenu->form=='F')
+commands.c:	sprintf(buf,"fboards/%s",nmenu->ccode);
+commands.c:    if(nmenu->form=='f' || nmenu->form=='F')
+commands.c:    else if(nmenu->form=='l' || nmenu->form=='L')
+commands.c:    sprintf(buf,"%s/%s",direc,nmenu->ccode);    
+commands.c:                sprintf(buf,"%s/%s",direc,nmenu->ccode);
+commands.c:		    sprintf(buf,"%s/%s",direc,nmenu->ccode);
+commands.c:    if(nmenu->aeqp!=NULL) {
+commands.c:	nmenu=nmenu->aeqp;
+commands.c:	if((nmenu->form=='R' || nmenu->form == 'E') && (nmenu->w > pf.level)) {
+commands.c:	    nmenu=nmenu->upp;
+commands.c:    if(nmenu->neqp !=NULL) {
+commands.c:	nmenu=nmenu->neqp;
+commands.c:	if((nmenu->form=='R' || nmenu->form=='E') && (nmenu->w > pf.level)) {
+commands.c:	    nmenu=nmenu->upp;
+commands.c:        strcpy(fhead,nmenu->ccode);
+commands.c:	    strcpy(fhead,nmenu->ccode);
+commands.c:            strcpy(fhead,nmenu->ccode);
+commands.c:    if(nmenu->form=='M') logo("mainhelp.hlp",1);
+commands.c:    else if(nmenu->form=='l' || nmenu->form =='L') logo("listhelp.hlp",1);
+commands.c:    else if(nmenu->form=='f' || nmenu->form =='F') logo("filehelp.hlp",1);
+commands.c:    if (nmenu->form=='l' || nmenu->form=='L') 
+commands.c:    	sprintf(buf,"boards/%s",nmenu->ccode);
+commands.c:    else if (nmenu->form=='f' || nmenu->form =='F')
+commands.c:	sprintf(buf,"fboards/%s",nmenu->ccode);
+commands.c:    else if (nmenu->form=='T')
+commands.c:	sprintf(buf,"TRASH/%s",nmenu->ccode);
+commands.c:    sprintf(buf,"%s/%s",direc,nmenu->ccode); 
+commands.c:            printf("\r\n %s>> ",nmenu->ccode);
+commands.c:    sprintf(buf,"%s/%s",direc,nmenu->ccode);
+commands.c:    printf("여기는 변소예요(냄새가 좀 나지요)?  %s 입니다.",nmenu->ccode);
+commands.c:    f= nmenu->form;
+commands.c:        sprintf(fname1,"%s/%s",direc,nmenu->ccode);
+commands.c:            sprintf(fname1,"%s/%s",direc,nmenu->ccode);
+commands.c:    uploadfile(buf,"fboards",nmenu->ccode);
+commands.c:    downloadfile(cmd,"fboards",nmenu->ccode,buf);
+commands.c:    sprintf(buf,"%s",nmenu->ccode);
+commands.c:    if(nmenu->form=='l'|| nmenu->form=='L') {
+commands.c:    sprintf(fheader,"%s",nmenu->ccode);
+commands.c:    sprintf(filedir,"ftp/%s",nmenu->file);
+contentdisplay.c:		    printf("\r\n%s                    %d/%d",nmenu->list,startline,endline);
+convertmenu.c:        oldnmenu->neqp = oldnmenu->aeqp = NULL;
+convertmenu.c:        oldnmenu->upp = oldnmenu;
+convertmenu.c:        oldnmenu->downp = oldmtmp;
+convertmenu.c:            if(oldnmenu->deep < oldmtmp->deep) {
+convertmenu.c:                oldnmenu->downp = oldmtmp;
+convertmenu.c:                oldnmenu->neqp = oldmtmp->aeqp = NULL;
+convertmenu.c:            else if(oldnmenu->deep == oldmtmp->deep) {
+convertmenu.c:                oldnmenu->downp = NULL;
+convertmenu.c:                oldnmenu->neqp = oldmtmp;
+convertmenu.c:                oldmtmp->upp = oldnmenu->upp;
+convertmenu.c:            else if(oldnmenu->deep > oldmtmp->deep) {
+convertmenu.c:                oldnmenu->downp = NULL;
+convertmenu.c:                oldnmenu->neqp = NULL;
+convertmenu.c:                j = oldnmenu->deep - oldmtmp->deep;
+convertmenu.c:                    oldnmenu = oldnmenu->upp;
+convertmenu.c:                oldnmenu->neqp = oldmtmp;
+convertmenu.c:                oldmtmp->upp = oldnmenu->upp;
+convertmenu.c:    sprintf(buf,"circle/CMENUS.%s",nmenu->ccode);
+convertmenu.c:        oldcnmenu->neqp = oldcnmenu->aeqp = NULL;
+convertmenu.c:        oldcnmenu->upp = oldcnmenu;
+convertmenu.c:        oldcnmenu->downp = oldcmtmp;
+convertmenu.c:            if(oldcnmenu->deep < oldcmtmp->deep) {
+convertmenu.c:                oldcnmenu->downp = oldcmtmp;
+convertmenu.c:                oldcnmenu->neqp = oldcmtmp->aeqp = NULL;
+convertmenu.c:            else if(oldcnmenu->deep == oldcmtmp->deep) {
+convertmenu.c:                oldcnmenu->downp = NULL;
+convertmenu.c:                oldcnmenu->neqp = oldcmtmp;
+convertmenu.c:                oldcmtmp->upp = oldcnmenu->upp;
+convertmenu.c:            else if(oldcnmenu->deep > oldcmtmp->deep) {
+convertmenu.c:                oldcnmenu->downp = NULL;
+convertmenu.c:                oldcnmenu->neqp = NULL;
+convertmenu.c:                j = oldcnmenu->deep - oldcmtmp->deep;
+convertmenu.c:                    oldcnmenu = oldcnmenu->upp;
+convertmenu.c:                oldcnmenu->neqp = oldcmtmp;
+convertmenu.c:                oldcmtmp->upp = oldcnmenu->upp;
+convertmenu.c:	  smenu->form=oldnmenu->form;
+convertmenu.c:          smenu->level=oldnmenu->level;
+convertmenu.c:          smenu->del=oldnmenu->del;
+convertmenu.c:	  smenu->w=oldnmenu->w;
+convertmenu.c:	  smenu->r=oldnmenu->r;
+convertmenu.c:	  smenu->deep=oldnmenu->deep;
+convertmenu.c:          strcpy(smenu->ccode,oldnmenu->ccode);
+convertmenu.c:          strcpy(smenu->list,oldnmenu->list);
+convertmenu.c:          strcpy(smenu->file,oldnmenu->file);
+convertmenu.c:          smenu->neqp=oldnmenu->neqp;
+convertmenu.c:	  smenu->aeqp=oldnmenu->aeqp;
+convertmenu.c:	  smenu->downp=oldnmenu->downp;
+convertmenu.c:          smenu->upp=oldnmenu->upp; 
+convertmenu.c:        oldnmenu = oldnmenu->downp;
+convertmenu.c:            oldnmenu->deep = i;
+convertmenu.c:              smenu->form=oldnmenu->form;
+convertmenu.c:              smenu->level=oldnmenu->level;
+convertmenu.c:              smenu->del=oldnmenu->del;
+convertmenu.c:              smenu->w=oldnmenu->w;
+convertmenu.c:              smenu->r=oldnmenu->r;
+convertmenu.c:              smenu->deep=oldnmenu->deep;
+convertmenu.c:              strcpy(smenu->ccode,oldnmenu->ccode);
+convertmenu.c:              strcpy(smenu->list,oldnmenu->list);
+convertmenu.c:              strcpy(smenu->file,oldnmenu->file);
+convertmenu.c:              smenu->neqp=oldnmenu->neqp;
+convertmenu.c:              smenu->aeqp=oldnmenu->aeqp;
+convertmenu.c:              smenu->downp=oldnmenu->downp;
+convertmenu.c:              smenu->upp=oldnmenu->upp; 
+convertmenu.c:            if(oldnmenu->downp == NULL) {
+convertmenu.c:                if(oldnmenu->neqp == NULL) {
+convertmenu.c:                        oldnmenu = oldnmenu->upp;
+convertmenu.c:                        if(oldnmenu->neqp != NULL || i == 0) break;
+convertmenu.c:                    if(i) oldnmenu = oldnmenu->neqp;choice++;
+convertmenu.c:                    oldnmenu = oldnmenu->neqp;choice++;
+convertmenu.c:                oldnmenu = oldnmenu->downp;
+convertmenu.c:    sprintf(buf,"circle/BBSCMENUS.%s",nmenu->ccode);
+convertmenu.c:          scmenu->form=oldcnmenu->form;
+convertmenu.c:          scmenu->level=oldcnmenu->level;
+convertmenu.c:          scmenu->del=oldcnmenu->del;
+convertmenu.c:          scmenu->w=oldcnmenu->w;
+convertmenu.c:          scmenu->r=oldcnmenu->r;
+convertmenu.c:          scmenu->deep=oldcnmenu->deep;
+convertmenu.c:          strcpy(scmenu->ccode,oldcnmenu->ccode);
+convertmenu.c:          strcpy(scmenu->list,oldcnmenu->list);
+convertmenu.c:          strcpy(scmenu->file,oldcnmenu->file);
+convertmenu.c:	  strcpy(scmenu->manager,oldcnmenu->manager);
+convertmenu.c:          scmenu->neqp=oldcnmenu->neqp;
+convertmenu.c:          scmenu->aeqp=oldcnmenu->aeqp;
+convertmenu.c:          scmenu->downp=oldcnmenu->downp;
+convertmenu.c:          scmenu->upp=oldcnmenu->upp; 
+convertmenu.c:        oldcnmenu = oldcnmenu->downp;
+convertmenu.c:            oldcnmenu->deep = i;
+convertmenu.c:              scmenu->form=oldcnmenu->form;
+convertmenu.c:              scmenu->level=oldcnmenu->level;
+convertmenu.c:              scmenu->del=oldcnmenu->del;
+convertmenu.c:              scmenu->w=oldcnmenu->w;
+convertmenu.c:              scmenu->r=oldcnmenu->r;
+convertmenu.c:              scmenu->deep=oldcnmenu->deep;
+convertmenu.c:              strcpy(scmenu->ccode,oldcnmenu->ccode);
+convertmenu.c:              strcpy(scmenu->list,oldcnmenu->list);
+convertmenu.c:              strcpy(scmenu->file,oldcnmenu->file);
+convertmenu.c:	      strcpy(scmenu->manager,oldcnmenu->manager);
+convertmenu.c:              scmenu->neqp=oldcnmenu->neqp;
+convertmenu.c:              scmenu->aeqp=oldcnmenu->aeqp;
+convertmenu.c:              scmenu->downp=oldcnmenu->downp;
+convertmenu.c:              scmenu->upp=oldcnmenu->upp; 
+convertmenu.c:            if(oldcnmenu->downp == NULL) {
+convertmenu.c:                if(oldcnmenu->neqp == NULL) {
+convertmenu.c:                        oldcnmenu = oldcnmenu->upp;
+convertmenu.c:                        if(oldcnmenu->neqp != NULL || i == 0) break;
+convertmenu.c:                    if(i) oldcnmenu = oldcnmenu->neqp;choice++;
+convertmenu.c:                    oldcnmenu = oldcnmenu->neqp;choice++;
+convertmenu.c:                oldcnmenu = oldcnmenu->downp;
+editor.c:	if(nmenu->form!='C'&& nmenu->form!='O') { /* 동호회가 아닌곳에서의 게시판 */
+editor.c:	      "%s%d.txt",nmenu->ccode,time(&edit_title.date));
+editor.c:	      "%s%d.txt",cnmenu->ccode,time(&edit_title.date));
+editor.c:	if(nmenu->form!='T') writetextheader(fp1);
+editor.c:        if (nmenu->form!='C'&& nmenu->form!='O'){
+editor.c:	    sprintf(buf,"%s/%s",directy,nmenu->ccode);
+editor.c:	else sprintf(buf,"%s/%s",directy,cnmenu->ccode);
+editor.c:    sprintf(edit_title.bfilename,"%s%d.txt",nmenu->ccode,time(&edit_title.date));
+editor.c:    sprintf(buf,"%s/%s",direc,nmenu->ccode);
+editor.c:    sprintf(buf,"%s/%s",direc,nmenu->ccode);
+etc.c:    if(nmenu->form == 'E') {
+etc.c:        if(nmenu->w <= pf.level) {
+etc.c:	    sprintf(buf,"%s.log",nmenu->ccode);
+etc.c:            sprintf(buf,"outbin/%s %s %d %s",nmenu->ccode,pf.id,pf_fos,tty);
+etc.c:        nmenu = nmenu->upp;
+etc.c:    else if(nmenu->form =='P') { /* 한게시물 보여주기 */
+etc.c:	display_onecontent(0,"page",nmenu->ccode);
+etc.c:	nmenu=nmenu->upp;
+etc.c:    else if(nmenu->form == 'C') { /* 동호회로 들어가는 것임 */
+etc.c:        if(upermenu==1) {nmenu=nmenu->upp;upermenu=0;}
+etc.c:    else if(nmenu->form == 'O') { /* 사무실에 들어가는 것입니다. */
+etc.c:	nmenu=nmenu->upp;
+etc.c:    else if(nmenu->form=='S') { /* 문헌 검색 */
+etc.c:   	munhun("munhun",nmenu->ccode);
+etc.c:    	nmenu=nmenu->upp;
+etc.c:    else if(nmenu->form == 'R') {  /* 게시물이실행화일.이것은 기본제공기능 */
+etc.c:        if(nmenu->w <= pf.level) {
+etc.c:	    sprintf(buf,"%s.log",nmenu->ccode);
+etc.c:	    if(!strcmp(nmenu->ccode,"hitel")) { /* 하이텔 에뮬 */
+etc.c:		nmenu=nmenu->upp;
+etc.c:            if(!strcmp(nmenu->ccode,"chat")) { /* 대화실 */
+etc.c:		nmenu= nmenu->upp;
+etc.c:            if(!strcmp(nmenu->ccode,"MUD")) {
+etc.c:                nmenu=nmenu->upp;
+etc.c:            else if(!strcmp(nmenu->ccode,"abc")) {   /* 회원정보변경 */
+etc.c:            else if(!strcmp(nmenu->ccode,"rmail")) {  /* 편지읽기 */
+etc.c:                if(upermenu) {nmenu=nmenu->upp;upermenu=0;}
+etc.c:	    else if(!strcmp(nmenu->ccode,"newrmail")) {  /* 새로운 메일 읽기 */
+etc.c:		if(upermenu) {nmenu=nmenu->upp;upermenu=0;}
+etc.c:            else if(!strcmp(nmenu->ccode,"wmail")) {  /* 편지쓰기 */
+etc.c:                nmenu=nmenu->upp;
+etc.c:	    else if(!strcmp(nmenu->ccode,"newwmail")) {  /* 새로운 메일 쓰기 */
+etc.c:		nmenu=nmenu->upp;
+etc.c:            else if(!strcmp(nmenu->ccode,"cmail")) { /* 보낸편지 체크 */
+etc.c:                nmenu= nmenu->upp;
+etc.c:            else if(!strcmp(nmenu->ccode,"smail")) {    /* 편지함 정리  */
+etc.c:                nmenu= nmenu->upp;
+etc.c:	    else if(!strcmp(nmenu->ccode,"mailist")) { /*개인별 주소록 */
+etc.c:		nmenu=nmenu->upp;
+etc.c:	    else if(!strcmp(nmenu->ccode,"Mailist")) {  /* 전체 주소록 */
+etc.c:		nmenu=nmenu->upp;
+etc.c:            else if(!strcmp(nmenu->ccode,"csysop")) {
+etc.c:                nmenu = nmenu->upp;
+etc.c:	    else if(!strcmp(nmenu->ccode,"manager")) {
+etc.c:		nmenu=nmenu->upp;
+etc.c:	    else if(!strcmp(nmenu->ccode,"CLaply")) {
+etc.c:		nmenu=nmenu->upp;
+etc.c:            nmenu = nmenu->upp;
+etc.c:    else if(nmenu->form == 'L' || nmenu->form == 'l') {   /* 게시물 */
+etc.c:	sprintf(buf,"%s.log",nmenu->ccode);
+etc.c:        show_board("boards",nmenu->ccode,boardcmd);
+etc.c:	if(upermenu==1) {nmenu=nmenu->upp; upermenu=0;}
+etc.c:    else if(nmenu->form == 'F' || nmenu->form == 'f') {   /* 화일 게시물 */
+etc.c:	sprintf(buf,"%s.log",nmenu->ccode);
+etc.c:        show_board("fboards",nmenu->ccode,filecmd);
+etc.c:        if(upermenu==1) {nmenu=nmenu->upp; upermenu=0;}
+etc.c:    else if(nmenu->form == 'T' ) {  /* 변소 기능 입니다. */
+etc.c:	sprintf(buf,"%s.log",nmenu->ccode);
+etc.c:    else nmenu = nmenu->upp;
+etc.c:                sprintf(work.ccode,"%s",nmenu->ccode);
+etc.c:            sprintf(work.ccode,"%s",nmenu->ccode);
+etc.c:    sprintf(buf,"circle/%s/%s",nmenu->ccode,discode);
+etc.c:            nmenu->deep = i;
+etc.c:        sprintf(buf,"\n%s에서 (%s)를 다운했네..",nmenu->ccode,listdata.filename);
+etc.c:        sprintf(buf,"\n%s에서 (%s)를 ***업을 하셨어요***",nmenu->ccode,listdata.filename);
+etc.c:	sprintf(buf,"\n%s에서 [%s]를 쓰셨습니다.",nmenu->ccode,listdata.title);
+etc.c:업로드가 잘못되었어요. ftp디렉토리에 있습니다.",nmenu->ccode,listdata.filename);
+etc.c:,nmenu->ccode);
+etc.c:	    sprintf(buf,"circle/%s/boards",nmenu->ccode);
+etc.c:	    sprintf(buf2,"circle/%s/fboards",nmenu->ccode);
+files.c:		sprintf(buf,"fboards/%s",nmenu->ccode);
+kongzidisplay.c:        bid=nmenu->form;
+kongzidisplay.c:                if (nmenu->form=='f' || nmenu->form=='F')  {
+kongzidisplay.c:                else if (nmenu->form=='l' || nmenu->form=='L') {
+kongzidisplay.c:                else if (!strcmp(nmenu->ccode,"TRASH")) {
+maildisplay.c:	bid=nmenu->form;
+main.c:        if(nmenu->form != 'M') {      /*  서브 메뉴가 없는 곳에서 */
+main.c:	    if(nmenu->r > pf.level) { /* 문턱 레벨로 제한 */
+main.c:		nmenu=nmenu->upp;
+main.c:                    printf("%s\r\n %s>> ",HELPLINE,nmenu->ccode);
+main.c:                    printf(" %s>> ",nmenu->ccode);
+main.c:	      ,tp->tm_hour,tp->tm_min,pf.id,nmenu->ccode);
+main.c:	    sprintf(buf," %s %s %s %s ",tty,pf.name,pf.id,nmenu->ccode);
+main.c:    sprintf(buf,"%s.log",nmenu->ccode);
+main.c:    /* nmenu->ccode는 동호회 코드 계속 기억된다*/
+main.c:    printf("\r\n %s 동호회에 들어갑니다.",nmenu->ccode);
+main.c:    sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+main.c:        if(cnmenu->form != 'M') {      /*  서브 메뉴가 없는 곳에서 */
+main.c:                sprintf(buf,"circle/%s/%s.mnu",nmenu->ccode,cmtop->ccode);
+main.c:				      nmenu->ccode,cmtmp->ccode);
+main.c:				      nmenu->ccode,cmtmp->ccode);
+main.c:                    printf("%s\r\n %s>> ",HELPLINE,cnmenu->ccode);
+main.c:                    printf(" %s>> ",nmenu->ccode);
+main.c:	      ,tp->tm_hour,tp->tm_min,pf.id,nmenu->ccode);
+main.c:            sprintf(buf," %s %s %s %s ",tty,pf.name,pf.id,cnmenu->ccode);
+main.c:    sprintf(buf,"%s.log",nmenu->ccode);
+main.c:    /* nmenu->ccode는 동호회 코드 계속 기억된다*/
+main.c:    sprintf(buf,"circle/%s/CUSER.%s",nmenu->ccode,nmenu->ccode);
+main.c:			sprintf(direc,"circle/%s/boards",nmenu->ccode);
+main.c:        if(cnmenu->form != 'M') {      /*  서브 메뉴가 없는 곳에서 */
+main.c:                sprintf(buf,"circle/%s/%s.mnu",nmenu->ccode,cmtop->ccode);
+main.c:                                      nmenu->ccode,cmtmp->ccode);
+main.c:                                      nmenu->ccode,cmtmp->ccode);
+main.c:                    printf("%s\r\n %s>> ",HELPLINE,cnmenu->ccode);
+main.c:                    printf("\r\n %s>> ",cnmenu->ccode);
+main.c:	      ,tp->tm_hour,tp->tm_min,pf.id,nmenu->ccode);
+main.c:            sprintf(buf," %s %s %s %s ",tty,pf.name,pf.id,cnmenu->ccode);
+maintain.c:    if(!(cs & nmenu->r)) {
+menustruct.c:        nmenu->neqp=nmenu->aeqp=NULL;
+menustruct.c:        nmenu->upp=nmenu;
+menustruct.c:        nmenu->downp=mtmp;
+menustruct.c:        nmenu->form='M'; nmenu->level=nmenu->del=nmenu->w=nmenu->r = nmenu->deep=0;
+menustruct.c:        strcpy(nmenu->ccode,"top");
+menustruct.c:        strcpy(nmenu->list,"돌탱크");
+menustruct.c:        strcpy(nmenu->file,"");
+menustruct.c:            while(nmenu->neqp != NULL) {
+menustruct.c:                printf("\r\n  %2d %3s %c %10s [%-8s]",++j,nmenu->choice,nmenu->form,nmenu->list,nmenu->ccode);
+menustruct.c:                printf(" %5d %5d : %5x : %5d",nmenu->w,nmenu->r,nmenu->del,nmenu->level);
+menustruct.c:                if(nmenu->form == 'f' || nmenu->form == 'F') printf(" %s",nmenu->file);
+menustruct.c:                nmenu = nmenu->neqp;
+menustruct.c:            printf("\r\n  %2d %3s %c %10s [%-8s]",++j,nmenu->choice,nmenu->form,nmenu->list,nmenu->ccode);
+menustruct.c:            printf(" %5d %5d : %5x : %5d",nmenu->w,nmenu->r,nmenu->del,nmenu->level            );
+menustruct.c:            if(nmenu->form == 'f' || nmenu->form == 'F') printf(" %s",nmenu->file);
+menustruct.c:                if(nmenu->neqp != NULL) nmenu = nmenu->neqp;
+menustruct.c:            if(nmenu->form == 'M') {
+menustruct.c:                    if(nmenu->neqp != NULL) {
+menustruct.c:                        nmenu = nmenu->neqp;
+menustruct.c:            printf("\r\n\n%<%s> [%s]",nmenu->list,nmenu->ccode);
+menustruct.c:            while(nmenu->neqp != NULL) nmenu = nmenu->neqp;
+menustruct.c:                    if(nmenu->neqp != NULL) {
+menustruct.c:                        nmenu = nmenu->neqp;
+menustruct.c:                mtmp->neqp = nmenu->neqp;
+menustruct.c:                mtmp->upp = nmenu->upp;
+menustruct.c:                nmenu->neqp = mtmp;
+menustruct.c:                mtop->downp = nmenu->neqp;
+menustruct.c:                    if(nmenu->neqp != NULL) {
+menustruct.c:                        nmenu = nmenu->neqp;
+menustruct.c:                mtmp->neqp = nmenu->neqp;
+menustruct.c:	sprintf(nmenu->choice,"%s",buf); 
+menustruct.c:        nmenu->form = buf[0];
+menustruct.c:        sprintf(nmenu->ccode,"%s",buf);
+menustruct.c:        sprintf(nmenu->list,"%s",buf);
+menustruct.c:    if((nmenu->form == 'M') && (nmenu->downp == NULL)) {
+menustruct.c:        nmenu->w = atoi(buf);
+menustruct.c:        nmenu->r = atoi(buf);
+menustruct.c:        if(nmenu->form == 'L' || nmenu->form == 'l' ||
+menustruct.c:          nmenu->form == 'V' || nmenu->form == 'v') {
+menustruct.c:            nmenu->level = atoi(buf);
+menustruct.c:        else if(nmenu->form == 'F' || nmenu->form == 'f') {
+menustruct.c:            nmenu->level = atoi(buf);
+menustruct.c:            if(nmenu->level == 0) {
+menustruct.c:                nmenu->level = 0;
+menustruct.c:            nmenu->del = atoi(buf);
+menustruct.c:            strcpy(nmenu->file,buf);  */
+menustruct.c:	    strcpy(nmenu->file,NULL);
+menustruct.c:    nmenu->neqp = mtmp;
+menustruct.c:    mtmp->upp = nmenu->upp;
+menustruct.c:    nmenu->downp = nmenu->neqp = NULL;
+menustruct.c:    nmenu->downp = mtmp;
+menustruct.c:    nmenu->downp = nmenu->neqp = NULL;
+menustruct.c:        printf("\r\n%8s %s",nmenu->ccode,nmenu->list);
+menustruct.c:        nmenu = nmenu->downp;
+menustruct.c:            nmenu->deep = i;
+menustruct.c:            printf("\r\n%8s %s",nmenu->ccode,nmenu->list);
+menustruct.c:            if(nmenu->downp == NULL) {
+menustruct.c:                if(nmenu->neqp == NULL) {
+menustruct.c:                        nmenu = nmenu->upp;
+menustruct.c:                        if(nmenu->neqp != NULL || i == 0) break;
+menustruct.c:                    if(i) nmenu = nmenu->neqp;
+menustruct.c:                    nmenu = nmenu->neqp;
+menustruct.c:                nmenu = nmenu->downp;
+menustruct.c:        nmenu->neqp = nmenu->aeqp = NULL;
+menustruct.c:        nmenu->upp = nmenu;
+menustruct.c:        nmenu->downp = mtmp;
+menustruct.c:            if(nmenu->deep < mtmp->deep) {
+menustruct.c:                nmenu->downp = mtmp;
+menustruct.c:                nmenu->neqp = mtmp->aeqp = NULL;
+menustruct.c:            else if(nmenu->deep == mtmp->deep) {
+menustruct.c:                nmenu->downp = NULL;
+menustruct.c:                nmenu->neqp = mtmp;
+menustruct.c:                mtmp->upp = nmenu->upp;
+menustruct.c:            else if(nmenu->deep > mtmp->deep) {
+menustruct.c:                nmenu->downp = NULL;
+menustruct.c:                nmenu->neqp = NULL;
+menustruct.c:                j = nmenu->deep - mtmp->deep;
+menustruct.c:                    nmenu = nmenu->upp;
+menustruct.c:                nmenu->neqp = mtmp;
+menustruct.c:                mtmp->upp = nmenu->upp;
+menustruct.c:        if(nmenu->neqp != NULL) {
+menustruct.c:            nmenu = nmenu->neqp;
+menustruct.c:            if(nmenu->downp != NULL) {
+menustruct.c:                nmenu = nmenu->downp;
+menustruct.c:                nmenu = nmenu->upp;
+menustruct.c:                if(nmenu->downp == mtmp) {
+menustruct.c:                    nmenu->downp = NULL;
+menustruct.c:                    nmenu = nmenu->downp;
+menustruct.c:                    while(nmenu->neqp != mtmp) {
+menustruct.c:                        nmenu = nmenu->neqp;
+menustruct.c:                    nmenu->neqp = NULL;
+newboardisplay.c:	if(nmenu->form =='f' || nmenu->form =='F') {docommand(buf,filecmd);}
+newboardisplay.c:	if(nmenu->form=='l' || nmenu->form=='L') {docommand(buf,boardcmd);}
+newboardisplay.c:    if(nmenu->form=='f' || nmenu->form=='F')
+newboardisplay.c:    else if(nmenu->form =='l' || nmenu->form=='L')
+newboardisplay.c:    if(nmenu->form=='l'|| nmenu->form=='L') {
+newboardisplay.c:    else if(nmenu->form =='f' || nmenu->form =='F') {
+office.c:    sprintf(buf,"circle/%s/message",nmenu->ccode);
+office.c:    sprintf(buf,"circle/%s/message",nmenu->ccode);
+oldmenustruct.c:	nmenu->neqp=nmenu->aeqp=NULL;
+oldmenustruct.c:	nmenu->upp=nmenu;
+oldmenustruct.c:	nmenu->downp=mtmp;
+oldmenustruct.c:	nmenu->form='M'; nmenu->level=nmenu->del=nmenu->w=nmenu->r = nmenu->deep=0;
+oldmenustruct.c:	strcpy(nmenu->ccode,"top");
+oldmenustruct.c:	strcpy(nmenu->list,"돌탱크");
+oldmenustruct.c:	strcpy(nmenu->file,"");
+oldmenustruct.c:            while(nmenu->neqp != NULL) {
+oldmenustruct.c:                printf("\r\n  %2d %c %s [%-8s]",++j,nmenu->form,nmenu->list,nmenu->ccode);
+oldmenustruct.c:                printf(" %5d %5d : %x : %d",nmenu->w,nmenu->r,nmenu->del,nmenu->level);
+oldmenustruct.c:                if(nmenu->form == 'f' || nmenu->form == 'F') printf(" %s",nmenu->file);
+oldmenustruct.c:                nmenu = nmenu->neqp;
+oldmenustruct.c:            printf("\r\n  %2d %c %s [%-8s]",++j,nmenu->form,nmenu->list,nmenu->ccode);
+oldmenustruct.c:            printf(" %5d %5d : %x : %d",nmenu->w,nmenu->r,nmenu->del,nmenu->level            );
+oldmenustruct.c:            if(nmenu->form == 'f' || nmenu->form == 'F') printf(" %s",nmenu->file);
+oldmenustruct.c:                if(nmenu->neqp != NULL) nmenu = nmenu->neqp;
+oldmenustruct.c:            if(nmenu->form == 'M') {
+oldmenustruct.c:                    if(nmenu->neqp != NULL) {
+oldmenustruct.c:                        nmenu = nmenu->neqp;
+oldmenustruct.c:            printf("\r\n\n%<%s> [%s]",nmenu->list,nmenu->ccode);
+oldmenustruct.c:            while(nmenu->neqp != NULL) nmenu = nmenu->neqp;
+oldmenustruct.c:                    if(nmenu->neqp != NULL) {
+oldmenustruct.c:                        nmenu = nmenu->neqp;
+oldmenustruct.c:                mtmp->neqp = nmenu->neqp;
+oldmenustruct.c:                mtmp->upp = nmenu->upp;
+oldmenustruct.c:                nmenu->neqp = mtmp;
+oldmenustruct.c:                mtop->downp = nmenu->neqp;
+oldmenustruct.c:                    if(nmenu->neqp != NULL) {
+oldmenustruct.c:                        nmenu = nmenu->neqp;
+oldmenustruct.c:                mtmp->neqp = nmenu->neqp;
+oldmenustruct.c:    nmenu->form = buf[0];
+oldmenustruct.c:    sprintf(nmenu->ccode,"%s",buf);
+oldmenustruct.c:    sprintf(nmenu->list,"%s",buf);
+oldmenustruct.c:    if((nmenu->form == 'M') && (nmenu->downp == NULL)) {
+oldmenustruct.c:        nmenu->w = atoi(buf);
+oldmenustruct.c:        nmenu->r = atoi(buf);
+oldmenustruct.c:        if(nmenu->form == 'L' || nmenu->form == 'l' ||
+oldmenustruct.c:          nmenu->form == 'V' || nmenu->form == 'v') {
+oldmenustruct.c:            nmenu->level = atoi(buf);
+oldmenustruct.c:        else if(nmenu->form == 'F' || nmenu->form == 'f') {
+oldmenustruct.c:            nmenu->level = atoi(buf);
+oldmenustruct.c:            if(nmenu->level == 0) {
+oldmenustruct.c:                nmenu->level = 0;
+oldmenustruct.c:            nmenu->del = atoi(buf);
+oldmenustruct.c:	    strcpy(nmenu->file,buf);
+oldmenustruct.c:    nmenu->neqp = mtmp;
+oldmenustruct.c:    mtmp->upp = nmenu->upp;
+oldmenustruct.c:    nmenu->downp = nmenu->neqp = NULL;
+oldmenustruct.c:    nmenu->downp = mtmp;
+oldmenustruct.c:    nmenu->downp = nmenu->neqp = NULL;
+oldmenustruct.c:        printf("\r\n%8s %s",nmenu->ccode,nmenu->list);
+oldmenustruct.c:        nmenu = nmenu->downp;
+oldmenustruct.c:            nmenu->deep = i;
+oldmenustruct.c:            printf("\r\n%8s %s",nmenu->ccode,nmenu->list);
+oldmenustruct.c:            if(nmenu->downp == NULL) {
+oldmenustruct.c:                if(nmenu->neqp == NULL) {
+oldmenustruct.c:                        nmenu = nmenu->upp;
+oldmenustruct.c:                        if(nmenu->neqp != NULL || i == 0) break;
+oldmenustruct.c:                    if(i) nmenu = nmenu->neqp;
+oldmenustruct.c:                    nmenu = nmenu->neqp;
+oldmenustruct.c:                nmenu = nmenu->downp;
+oldmenustruct.c:        if(nmenu->neqp != NULL) {
+oldmenustruct.c:            nmenu = nmenu->neqp;
+oldmenustruct.c:            if(nmenu->downp != NULL) {
+oldmenustruct.c:                nmenu = nmenu->downp;
+oldmenustruct.c:                nmenu = nmenu->upp;
+oldmenustruct.c:                if(nmenu->downp == mtmp) {
+oldmenustruct.c:                    nmenu->downp = NULL;
+oldmenustruct.c:                    nmenu = nmenu->downp;
+oldmenustruct.c:                    while(nmenu->neqp != mtmp) {
+oldmenustruct.c:                        nmenu = nmenu->neqp;
+oldmenustruct.c:                    nmenu->neqp = NULL;
+oldmenustruct.c:        nmenu->neqp = nmenu->aeqp = NULL;
+oldmenustruct.c:        nmenu->upp = nmenu;
+oldmenustruct.c:        nmenu->downp = mtmp;
+oldmenustruct.c:            if(nmenu->deep < mtmp->deep) {
+oldmenustruct.c:                nmenu->downp = mtmp;
+oldmenustruct.c:                nmenu->neqp = mtmp->aeqp = NULL;
+oldmenustruct.c:            else if(nmenu->deep == mtmp->deep) {
+oldmenustruct.c:                nmenu->downp = NULL;
+oldmenustruct.c:                nmenu->neqp = mtmp;
+oldmenustruct.c:                mtmp->upp = nmenu->upp;
+oldmenustruct.c:            else if(nmenu->deep > mtmp->deep) {
+oldmenustruct.c:                nmenu->downp = NULL;
+oldmenustruct.c:                nmenu->neqp = NULL;
+oldmenustruct.c:                j = nmenu->deep - mtmp->deep;
+oldmenustruct.c:                    nmenu = nmenu->upp;
+oldmenustruct.c:                nmenu->neqp = mtmp;
+oldmenustruct.c:                mtmp->upp = nmenu->upp;
+profile.c:	nmenu=nmenu->upp;	
+profile.c:            nmenu = nmenu->upp;
+profile.c:            if(nmenu->aeqp != NULL ) {
+profile.c:                nmenu = nmenu->aeqp;
+profile.c:                if((nmenu->form == 'R' || nmenu->form == 'E') && (nmenu->w > pf.level)) {
+profile.c:                    nmenu = nmenu->upp;
+profile.c:            if(nmenu->neqp != NULL ) {
+profile.c:                nmenu = nmenu->neqp;
+profile.c:                if((nmenu->form == 'R' || nmenu->form == 'E') && (nmenu->w > pf.level)) {
+profile.c:                    nmenu = nmenu->upp;
