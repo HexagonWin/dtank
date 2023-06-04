@@ -73,7 +73,8 @@ char chatalias[10]; /* 채팅방에서 쓰일 별명 */
 static int timed_out;
 char indata[30];
 extern char *gets();
-int host_end(),bye();
+int bye();
+void host_end();
 int dis_read(),chose_menu();
 void get_menu(),logo(),mess(),my_pf(),chk_csysop(),del_mylogin();
 void mess_dis(),change_info(),change_flag();

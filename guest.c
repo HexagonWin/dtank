@@ -11,9 +11,9 @@ guestregister()
     signal(SIGQUIT, SIG_IGN);
     signal(SIGINT, SIG_IGN);
     signal(SIGTERM, SIG_IGN);
-    signal(SIGHUP, (__sighandler_t)host_end);
-    signal(SIGSEGV, (__sighandler_t)host_end);
-    signal(SIGBUS, (__sighandler_t)host_end);
+    signal(SIGHUP, host_end);
+    signal(SIGSEGV, host_end);
+    signal(SIGBUS, host_end);
     ioctl(0, TCGETA, &systerm);
     rawmode();
     umask(0111);
@@ -273,7 +273,7 @@ guestregister()
     if(k & 0x04) { /* 3번 비트가 1이면 손님메뉴에서 메인메뉴들어감 */
         sprintf(buf,"%d",i);
         sprintf(ti,"%d",pf.num);
-        ioctl(0, TCSETAF, &mbuf);
+        ioctl(0, TCSANOW, &mbuf);
         return 0;
     }
 
