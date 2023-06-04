@@ -9,7 +9,7 @@
 #include <time.h>
 #include <signal.h>
 #include <sys/types.h>
-#include <termio.h>
+#include <termios.h>
 #include <sys/stat.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
