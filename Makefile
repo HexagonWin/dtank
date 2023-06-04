@@ -8,7 +8,7 @@ BBSDIR= /home/hexagonwin/dtank
 SHELL=  /bin/sh
 CC=     gcc48 -g
 
-CFLAGS= -O
+CFLAGS= -O0
 LFLAGS= 
 
 LIBS=  
