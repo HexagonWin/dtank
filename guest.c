@@ -14,7 +14,10 @@ guestregister()
     signal(SIGHUP, host_end);
     signal(SIGSEGV, host_end);
     signal(SIGBUS, host_end);
-    ioctl(0, TCGETA, &systerm);
+    if (tcgetattr(0, &systerm) == -1) {
+        perror("tcgetattr");
+        exit(1);
+    }
     rawmode();
     umask(0111);
     logo("guest.log",1);
