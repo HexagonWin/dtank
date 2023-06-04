@@ -62,7 +62,7 @@ struct lestfile lest;      /* 로그아웃시 사용되는 구조체 */
 struct fcfg cfg;           /* 비비에스 기본 config 화일 */
 struct mail letter;        /* 편지 fileheader용이다 */ 
 struct mail_dis mail_chk;  /* 메일 체크용 fileheader이다. */
-struct termio systerm, mbuf;   
+struct termios systerm, mbuf;   
 struct shmid_ds ss;        /* 채팅용 공유메모리, 차단표시기 */
 
 int mycellnum;  /* 전역변수: 채팅방에서 쓸 자기가 들어간 방이름 */
