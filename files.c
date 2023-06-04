@@ -35,22 +35,22 @@ uploadfile(char *direc,char *bdirec,char*fhead)
 	if (buf[0] =='1') {
 	    printf("\r\n rz 로 화일을 받겠습니다.");
 	    chdir("ftp");
-	    ioctl(0,TCSETAF,&systerm);
+	    ioctl(0,TCSANOW,&systerm);
 	    system("rz -v");
             sprintf(buf,"chmod a+rw *");
             system(buf);
-	    ioctl(0,TCSETAF,&mbuf);
+	    ioctl(0,TCSANOW,&mbuf);
 	    chdir(getenv("HOME"));
 	    break;
 	}
 	else if (buf[0]=='2') {
 	    printf("\r\n rz -e로 화일을 받겠습니다.");
 	    chdir("ftp");
-	    ioctl(0,TCSETAF,&systerm);
+	    ioctl(0,TCSANOW,&systerm);
 	    system("rz -ev");
 	    sprintf(buf,"chmod a+rw *");
 	    system(buf);
-	    ioctl(0,TCSETAF,&mbuf);
+	    ioctl(0,TCSANOW,&mbuf);
 	    chdir(getenv("HOME"));
 	    
 	    break;
@@ -58,11 +58,11 @@ uploadfile(char *direc,char *bdirec,char*fhead)
 	else if (buf[0] =='3') {
 	    printf("\r\n kermit으로 받겠습니다.");
 	    chdir("ftp");
-	    ioctl(0,TCSETAF,&systerm);
+	    ioctl(0,TCSANOW,&systerm);
 	    system("kermit -r");
 	    sprintf(buf,"chmod a+rw *");
 	    system(buf);
-	    ioctl(0,TCSETAF,&mbuf);
+	    ioctl(0,TCSANOW,&mbuf);
 	    chdir(getenv("HOME"));
 	    break;	
 	}
@@ -70,12 +70,12 @@ uploadfile(char *direc,char *bdirec,char*fhead)
 	    printf("\r\n 운영자 업로드입니다. ");
 	   /* 일단 ftp로 옮긴다. */
 	    printf("\r\n 일반인은 사용할 수 없어요.");
-	    ioctl(0,TCSETAF,&systerm);
+	    ioctl(0,TCSANOW,&systerm);
             sprintf(buf,"chmod a+rw *");
             system(buf);
 	    sprintf(buf,"mv sysopfile/%s ftp",up_title.filename); 
 	    system(buf);
-	    ioctl(0,TCSETAF,&mbuf);
+	    ioctl(0,TCSANOW,&mbuf);
 	    chdir(getenv("HOME"));
 	    break;
 	}
@@ -140,27 +140,27 @@ uploadfile(char *direc,char *bdirec,char*fhead)
     }
     printf("\r\n 화일을 등록합니다(본디렉토리로)");
     sprintf(buf,"cp ftp/%s %s/%s",up_title.filename,direc,up_title.filename);
-    ioctl(0,TCSETAF,&systerm);
+    ioctl(0,TCSANOW,&systerm);
     system(buf);
-    ioctl(0,TCSETAF,&mbuf);
+    ioctl(0,TCSANOW,&mbuf);
     sprintf(buf,"%s/%s",direc,up_title.filename);
     printf("\r\n %s로 자료를 옮깁니다.",buf);
     if ( (fp1=fopen(buf,"r")) == NULL ) {
 	printf("\r\n 화일등록이 안 되었습니다. ***심각***");
 	printf("\r\n 운영자에게 알려주세요.    ***심각***");
-	ioctl(0,TCSETAF,&systerm); 
+	ioctl(0,TCSANOW,&systerm); 
         sprintf(buf,"cp ftp/%s ftp/fail/%s",up_title.filename,up_title.filename);
 	system(buf);
 	sprintf(buf,"rm ftp/%s",up_title.filename);
-	ioctl(0,TCSETAF,&mbuf);
+	ioctl(0,TCSANOW,&mbuf);
 	report("registererror",up_title);
 	pressreturn(); reprint=YEA; return;
     } 
     fclose(fp1);
     printf("\r\n 화일을 %s디렉토리로 등록했습니다.",direc);
-    ioctl(0,TCSETAF,&systerm); 
+    ioctl(0,TCSANOW,&systerm); 
     sprintf(buf,"rm ftp/%s",up_title.filename);system(buf);
-    ioctl(0,TCSETAF,&mbuf);
+    ioctl(0,TCSANOW,&mbuf);
     sprintf(buf,"%s/%s",bdirec,fhead);
     if((fp1=fopen(buf,"r+")) == NULL ) {
 	printf("\r\n 화일게시물헤더가 안 열립니다(등록중단)");
@@ -243,9 +243,9 @@ downloadfile(char*cmd,char*direc,char*fhead,char*filedir)
 		}
 		sprintf(buf,"sz %s",alldfname);
 		printf("\r\n %s",buf);
-		ioctl(0,TCSETAF,&systerm);
+		ioctl(0,TCSANOW,&systerm);
 		system(buf);
-		ioctl(0,TCSETAF,&mbuf);
+		ioctl(0,TCSANOW,&mbuf);
 		chdir(getenv("HOME"));
 		if(ch==' ') {
 		    change_in();
@@ -264,9 +264,9 @@ downloadfile(char*cmd,char*direc,char*fhead,char*filedir)
 		    change_in();
 		}
 		sprintf(buf,"kermit -s %s",alldfname);
-		ioctl(0,TCSETAF,&systerm);
+		ioctl(0,TCSANOW,&systerm);
 		system(buf);
-		ioctl(0,TCSETAF,&mbuf);
+		ioctl(0,TCSANOW,&mbuf);
 		chdir(getenv("HOME"));
 		if(ch==' ') {
 		    change_in();

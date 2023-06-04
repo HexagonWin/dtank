@@ -23,7 +23,8 @@ main(argv,argc)
 int argv;
 char **argc;
 {
-    char tmp_buf[256],temp[256],*shmaddr,*shmat(),*tmp,*buf;
+    char tmp_buf[256],temp[256],*shmaddr,*tmp,*buf;
+    void *shmat();
     char file[30];
     char c;
     char tty[10];
@@ -32,8 +33,8 @@ char **argc;
     buf = tmp_buf;
     tmp = temp;
 
-    signal(SIGTERM, (__sighandler_t)host_end);
-    signal(SIGHUP, (__sighandler_t)host_end);
+    signal(SIGTERM, host_end);
+    signal(SIGHUP, host_end);
     sprintf(tty,argc[2]);
     room = atoi(argc[1]);
     if((shmid=shmget((key_t)room, SIZE, IPC_CREAT | MODE)) == -1)

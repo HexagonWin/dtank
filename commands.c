@@ -450,10 +450,10 @@ gotoshell()
 	lineinput(buf,10,NA);
 	if(!strcmp(cfg.secret,buf)) {
 	    printf("\r\n 쉘로 나갑니다. \r\n");
-	    ioctl(0,TCSETAF,&systerm);
+	    ioctl(0,TCSANOW,&systerm);
 	    system("sh");
 	    chdir(getenv("HOME"));
-	    ioctl(0,TCSETAF,&mbuf);
+	    ioctl(0,TCSANOW,&mbuf);
 	}
 	reprint=YEA;
     }

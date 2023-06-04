@@ -66,7 +66,12 @@ int isatty(fd)
 int fd;
 {
     struct termios term;
-    return(ioctl(fd,TCGETA,&term) != -1);
+    /*return(ioctl(fd,TCGETA,&term) != -1);*/
+    if (tcgetattr(fd, &term) == -1) {
+        perror("tcgetattr");
+        exit(1);
+    }
+    return 1;
 }
 
 main()
@@ -75,7 +80,7 @@ main()
     char c, tty[25], *tmp, *getty, *ttyname();
     FILE *fp1;
     struct stat statbuf;
-    struct termio tbuf;
+    struct termios tbuf;
     time_t current, i;
     umask(0111);
     for(ps = 0; ps <= 10; ps++) {
