@@ -1,4 +1,3 @@
-
 #include "bbs.h"
 
 /*  다음의 프로그램은 라인에디터입니다. */
@@ -149,10 +148,10 @@ char *direc;
         return 1;
     }
     sprintf(edit_title.bfilename,"%s%d.txt",nmenu->ccode,time(&edit_title.date));
-    ioctl(0,TCSETAF,&systerm);
+    ioctl(0,TCSANOW,&systerm);
     sprintf(buf,"vi %s/%s",direc,edit_title.bfilename);
     system(buf);
-    ioctl(0,TCSETAF,&mbuf);
+    ioctl(0,TCSANOW,&mbuf);
 
     sprintf(buf,"%s/%s",direc,edit_title.bfilename);
     fp1 = fopen(buf,"r"); /* 화일 포지션은 맨 끝 */
@@ -200,12 +199,12 @@ char*direc;
 	printf("\r\n 취소되었습니다.");
 	return;
     }
-    ioctl(0,TCSETAF,&systerm);
+    ioctl(0,TCSANOW,&systerm);
     chdir(direc);
     sprintf(buf,"rz");
     system(buf);
     chdir(getenv("HOME"));
-    ioctl(0,TCSETAF,&mbuf);
+    ioctl(0,TCSANOW,&mbuf);
 
     sprintf(buf,"%s/%s",direc,edit_title.bfilename);
     fp1 = fopen(buf,"r"); /* 화일 포지션은 맨 끝 */
