@@ -50,7 +50,7 @@ id_in()
         lineinput(id,8,YEA);
         if((!strcmp(id,"손님")) || \
 	  (!strcmp(id,"guest")) || (!strcmp(id,"GUEST"))) {  
-            ioctl(0, TCSETAF, &systerm);
+            ioctl(0, TCSANOW, &systerm);
             resultcode=guestregister();
             if(resultcode==0) return 1; /* guest=1으로 만들고 비비시작 */
             else {

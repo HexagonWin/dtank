@@ -58,9 +58,9 @@ int chose_menu()  /* 메뉴 내용 검사 */
 	    sprintf(buf,"%s.log",nmenu->ccode);
             logo(buf,0);
             sprintf(buf,"outbin/%s %s %d %s",nmenu->ccode,pf.id,pf_fos,tty);
-            ioctl(0, TCSETAF, &systerm);
+            ioctl(0, TCSANOW, &systerm);
             system(buf);
-            ioctl(0, TCSETAF, &mbuf);
+            ioctl(0, TCSANOW, &mbuf);
         }
         else {  /* 레벨이 안될경우 */
             key = 0;
@@ -390,7 +390,7 @@ struct idst s_pf;
     }
 }
 
-int host_end()  /* 프로그램 종료 루틴 */
+void host_end()  /* 프로그램 종료 루틴 */
 {
     int i, j, len;
     char buf[80],ch;
@@ -470,7 +470,7 @@ int host_end()  /* 프로그램 종료 루틴 */
         fclose(fp1);
     }
     Menu_Free();
-    ioctl(0, TCSETAF, &systerm);
+    ioctl(0, TCSANOW, &systerm);
     if(cfg.flag & 1) {   /* 강제 끊기 */
         signal(SIGHUP, SIG_DFL);
         sprintf(buf,"/dev/%s",tty);
@@ -763,10 +763,10 @@ tp->tm_year,tp->tm_mon+1,tp->tm_mday,tp->tm_hour,tp->tm_min,tp->tm_sec,pf.id,tty
 mudgame()
 {
 	sleep(1);
-	ioctl(0,TCSETAF,&systerm);
+	ioctl(0,TCSANOW,&systerm);
 	system("stty erase ^H"); 
 	system("telnet -8 204.252.146.210 4000");
-	ioctl(0,TCSETAF,&mbuf);
+	ioctl(0,TCSANOW,&mbuf);
 /*	printf("\r\n MOO을 마칩니다."); */
 	pressreturn();
 	reprint=YEA;

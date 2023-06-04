@@ -3,7 +3,10 @@
 rawmode()
 {
     struct termio tbuf;
-    ioctl(0, TCGETA, &tbuf);
+    if (tcgetattr(0, &systerm) == -1) {
+        perror("tcgetattr");
+        exit(1);
+    }
     tbuf.c_cc[4] = 1;
     tbuf.c_cc[5] = 0;
     tbuf.c_iflag = 0;
@@ -15,7 +18,7 @@ rawmode()
     tbuf.c_cflag &= ~PARENB;
     tbuf.c_cflag &= ~CSIZE;
     tbuf.c_cflag |= CS8;
-    ioctl(0, TCSETAF, &tbuf);
+    ioctl(0, TCSANOW, &tbuf);
     return;
 }
 /* 메인 프로그램입니다. */
@@ -41,9 +44,9 @@ char *argv[];
     signal(SIGQUIT, SIG_IGN);
     signal(SIGINT, SIG_IGN);
     signal(SIGTERM, SIG_IGN);
-    signal(SIGHUP, (__sighandler_t)host_end);
-    signal(SIGSEGV, (__sighandler_t)host_end);
-    signal(SIGBUS, (__sighandler_t)host_end);
+    signal(SIGHUP, host_end);
+    signal(SIGSEGV, host_end);
+    signal(SIGBUS, host_end);
     signal(SIGCHLD,SIG_IGN);
         signal(SIGPIPE,SIG_IGN);
         signal(SIGALRM,SIG_IGN);
@@ -51,17 +54,23 @@ char *argv[];
         signal(SIGTSTP,SIG_IGN);
         signal(SIGTTIN,SIG_IGN);
         signal(SIGTTOU,SIG_IGN);
-	signal(SIGPWR,(__sighandler_t)host_end);
+	signal(SIGPWR,host_end);
 	signal(SIGSTOP,SIG_IGN);
-	signal(SIGVTALRM,(__sighandler_t)host_end);
+	signal(SIGVTALRM,host_end);
 	signal(SIGWINCH,SIG_IGN);
 	signal(SIGXCPU,SIG_IGN);
-	signal(SIGXFSZ,(__sighandler_t)host_end);
+	signal(SIGXFSZ,host_end);
     highuser = 0;
     umask(0111); 
-    ioctl(0, TCGETA, &systerm);
+    if (tcgetattr(0, &systerm) == -1) {
+        perror("tcgetattr");
+        exit(1);
+    }
     rawmode();  /* 넌 캐노니칼 모드 */
-    ioctl(0, TCGETA, &mbuf);
+    if (tcgetattr(0, &systerm) == -1) {
+        perror("tcgetattr");
+        exit(1);
+    }
     umask(0111);
     trace=1;
     level=0;
